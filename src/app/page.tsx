@@ -1,176 +1,219 @@
 // app/page.tsx
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./Home.module.css";
+import Image from "next/image";
+import ServicesSection from "@/components/home/services/Services";
+import ProcessSection from "@/components/home/process/Process";
+import AboutSection from "@/components/home/about/About";
 
 export default function Home() {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        if (!canvasRef.current) return;
+
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // Set canvas size
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        // Particle system for background
+        const particles: Array<{
+            x: number;
+            y: number;
+            size: number;
+            speedX: number;
+            speedY: number;
+            color: string;
+        }> = [];
+
+        // Create particles
+        for (let i = 0; i < 150; i++) {
+            const size = Math.random() * 2 + 1;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const speedX = (Math.random() - 0.5) * 0.7;
+            const speedY = (Math.random() - 0.5) * 0.5;
+            const colors = [
+                "rgba(107, 78, 255, 0.5)",
+                "rgba(142, 125, 255, 0.5)",
+                "rgba(76, 175, 80, 0.3)",
+                "rgba(255, 152, 0, 0.3)",
+            ];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particles.push({ x, y, size, speedX, speedY, color });
+        }
+
+        // Animation loop
+        const animate = () => {
+            requestAnimationFrame(animate);
+            ctx.fillStyle = "rgba(18, 18, 18)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+
+                // Wrap around edges
+                if (particle.x > canvas.width) particle.x = 0;
+                if (particle.x < 0) particle.x = canvas.width;
+                if (particle.y > canvas.height) particle.y = 0;
+                if (particle.y < 0) particle.y = canvas.height;
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+
+                // Draw connections between nearby particles
+                for (let j = index + 1; j < particles.length; j++) {
+                    const dx = particle.x - particles[j].x;
+                    const dy = particle.y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(107, 78, 255, ${
+                            1 - distance / 100
+                        })`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            });
+        };
+
+        animate();
+
+        return () => {
+            window.removeEventListener("resize", resizeCanvas);
+        };
+    }, []);
+
     return (
         <>
+            {/* Animated Background Canvas */}
+            <canvas
+                ref={canvasRef}
+                className={styles.backgroundCanvas}
+            ></canvas>
+
+            {/* Navigation */}
+            <nav className={styles.nav}>
+                <div className={`container ${styles.navContainer}`}>
+                    <div className={styles.logo}>
+                        <Image
+                            alt="Nasaq for digital solutions"
+                            width={100}
+                            height={100}
+                            src={"/logo-white-transparent.png"}
+                            className={styles.logo}
+                        />
+                    </div>
+                    <div className={styles.navLinks}>
+                        <Link href="/services">Services</Link>
+                        <Link href="/portfolio">Work</Link>
+                        <Link href="/about">About</Link>
+                        <Link href="/contact">Contact</Link>
+                    </div>
+                </div>
+            </nav>
+
             {/* Hero Section */}
             <section className={styles.hero}>
-                <div className={styles.heroBackground}>
-                    <div className={styles.animatedOrbs}>
-                        <div className={styles.orb1}></div>
-                        <div className={styles.orb2}></div>
-                        <div className={styles.orb3}></div>
-                    </div>
-                </div>
-
                 <div className={`container ${styles.heroContainer}`}>
                     <div className={styles.heroContent}>
+                        <div className={styles.badge}>
+                            <span>Innovating Digital Experiences</span>
+                        </div>
                         <h1 className={styles.heroTitle}>
-                            Transforming Ideas into{" "}
-                            <span className="text-gradient">
-                                Digital Excellence
-                            </span>
+                            We Craft{" "}
+                            <span className={styles.highlight}>
+                                Digital Solutions
+                            </span>{" "}
+                            That Drive Your Business Forward
                         </h1>
                         <p className={styles.heroDescription}>
-                            Nasaq creates stunning websites and applications
-                            that help businesses thrive in the digital world. We
-                            blend innovative design with cutting-edge technology
-                            to deliver exceptional user experiences.
+                            Nasaq specializes in creating cutting-edge websites
+                            and applications that combine elegant design with
+                            powerful functionality. Let us transform your vision
+                            into reality.
                         </p>
                         <div className={styles.heroButtons}>
-                            <Link href="/portfolio" className="btn btn-primary">
-                                View Our Work
+                            <Link
+                                href="/portfolio"
+                                className={`btn btn-primary ${styles.heroBtn}`}
+                            >
+                                Explore Our Work
+                                <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M5 12H19M19 12L12 5M19 12L12 19"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </Link>
-                            <Link href="/contact" className="btn btn-secondary">
-                                Get Started
+                            <Link
+                                href="/contact"
+                                className={`btn btn-secondary ${styles.heroBtn}`}
+                            >
+                                Start a Project
                             </Link>
-                        </div>
-                    </div>
-                    <div className={styles.heroVisual}>
-                        <div className={styles.codeVisual}>
-                            <div className={styles.codeLine}></div>
-                            <div className={styles.codeLine}></div>
-                            <div className={styles.codeLine}></div>
-                            <div className={styles.codeLine}></div>
-                            <div className={styles.codeLine}></div>
                         </div>
                     </div>
                 </div>
             </section>
-
-            {/* Services Section */}
-            <section className={styles.services}>
-                <div className="container">
-                    <h2 className={`text-center ${styles.sectionTitle}`}>
-                        Our <span className="text-gradient">Services</span>
-                    </h2>
-                    <div className={styles.servicesGrid}>
-                        <div className={styles.serviceCard}>
-                            <div className={styles.serviceIcon}>
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 2L2 7L12 12L22 7L12 2Z"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M2 17L12 22L22 17"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M2 12L12 17L22 12"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                </svg>
-                            </div>
-                            <h3>Web Development</h3>
-                            <p>
-                                Custom websites built with modern technologies
-                                like Next.js, React, and TypeScript for optimal
-                                performance.
-                            </p>
-                        </div>
-
-                        <div className={styles.serviceCard}>
-                            <div className={styles.serviceIcon}>
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M17 17H7V7H17V17Z"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M7 5H17C18.1046 5 19 5.89543 19 7V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V7C5 5.89543 5.89543 5 7 5Z"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M10 14H14"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                </svg>
-                            </div>
-                            <h3>Mobile Applications</h3>
-                            <p>
-                                Cross-platform mobile apps that provide seamless
-                                experiences on iOS and Android devices.
-                            </p>
-                        </div>
-
-                        <div className={styles.serviceCard}>
-                            <div className={styles.serviceIcon}>
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M3 12H7M17 12H21"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                    <path
-                                        d="M12 3V7M12 17V21"
-                                        stroke="var(--accent-primary)"
-                                        strokeWidth="2"
-                                    />
-                                </svg>
-                            </div>
-                            <h3>UI/UX Design</h3>
-                            <p>
-                                User-centered designs that combine aesthetics
-                                with functionality to create engaging
-                                experiences.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Portfolio Preview */}
             <section className={styles.portfolio}>
                 <div className="container">
-                    <h2 className={`text-center ${styles.sectionTitle}`}>
-                        Featured <span className="text-gradient">Work</span>
-                    </h2>
+                    <div className={styles.sectionHeader}>
+                        <h2 className={styles.sectionTitle}>
+                            Our <span className="text-gradient">Work</span>
+                        </h2>
+                        <p className={styles.sectionSubtitle}>
+                            A selection of projects we’ve crafted with modern design, speed, and usability in mind.
+                        </p>
+                    </div>
                     <div className={styles.portfolioGrid}>
                         <div className={styles.portfolioItem}>
                             <div className={styles.portfolioImage}>
+                                <Image
+                                    fill
+                                    src={"/projects/hawya.png"}
+                                    alt="Hawya Car Rental Website"
+                                />
+
                                 <div className={styles.overlay}>
-                                    <button className="btn btn-primary">
+                                    <Link
+                                        href={"https://hawya-rental.com/"}
+                                        className="btn btn-primary"
+                                    >
                                         View Project
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
-                            <h3>E-Commerce Platform</h3>
+                            <h3>Hawya Car Rental</h3>
                             <p>
                                 Modern online store with seamless checkout
                                 experience
@@ -179,13 +222,22 @@ export default function Home() {
 
                         <div className={styles.portfolioItem}>
                             <div className={styles.portfolioImage}>
+                                <Image
+                                    fill
+                                    src={"/projects/razan.png"}
+                                    alt="Razan academy for quranic studies"
+                                />
+
                                 <div className={styles.overlay}>
-                                    <button className="btn btn-primary">
+                                    <Link
+                                        href={"https://razan-academy.net/"}
+                                        className="btn btn-primary"
+                                    >
                                         View Project
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
-                            <h3>Health & Fitness App</h3>
+                            <h3>Razan Academy</h3>
                             <p>
                                 Mobile application for tracking workouts and
                                 nutrition
@@ -194,41 +246,31 @@ export default function Home() {
 
                         <div className={styles.portfolioItem}>
                             <div className={styles.portfolioImage}>
+                                <Image
+                                    fill
+                                    src={"/projects/clinic.png"}
+                                    alt="Ent clinic"
+                                />
                                 <div className={styles.overlay}>
-                                    <button className="btn btn-primary">
+                                    <Link
+                                        href={"http://clinicent.vercel.app/"}
+                                        className="btn btn-primary"
+                                    >
                                         View Project
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
-                            <h3>Corporate Website</h3>
+                            <h3>ENT Clinic</h3>
                             <p>
                                 Rebranding and website redesign for tech company
                             </p>
                         </div>
                     </div>
-                    <div className="text-center mt-4">
-                        <Link href="/portfolio" className="btn btn-secondary">
-                            See All Projects
-                        </Link>
-                    </div>
                 </div>
             </section>
-
-            {/* CTA Section */}
-            <section className={styles.cta}>
-                <div className="container">
-                    <div className={styles.ctaContent}>
-                        <h2>Ready to bring your idea to life?</h2>
-                        <p>
-                            Let&apos;s discuss how we can help your business grow
-                            with a custom digital solution.
-                        </p>
-                        <Link href="/contact" className="btn btn-primary">
-                            Start a Project
-                        </Link>
-                    </div>
-                </div>
-            </section>
+            <ServicesSection />
+            <ProcessSection />
+            <AboutSection  />
         </>
     );
 }
