@@ -3,6 +3,7 @@ import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import Navigation from "@/components/nav/Nav";
+import Footer from "@/components/footer/Footer";
 type Props = {
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
@@ -16,17 +17,20 @@ export const metadata = {
         icon: "/logo-white-transparent.png",
     },
 };
-export default async function RootLayout({children, params}: Props) {
+export default async function RootLayout({ children, params }: Props) {
     const { locale } = await params;
     if (!hasLocale(routing.locales, locale)) {
         notFound();
     }
     return (
-        <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
             <body>
                 <NextIntlClientProvider>
                     <Navigation />
-                    {children}</NextIntlClientProvider>
+                    {children}
+
+                    <Footer />
+                </NextIntlClientProvider>
             </body>
         </html>
     );

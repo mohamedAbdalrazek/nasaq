@@ -127,5 +127,33 @@
             "text": "Ready to transform your business and reach customers online? ...",
             "button": "Start Your Digital Journey"
         }
+    },
+    "Footer": {
+        "brandDescription": "Building modern websites and digital solutions that help businesses grow and connect with their audience online.",
+        "services": {
+            "title": "Our Services",
+            "webDevelopment": "Website Development",
+            "seoOptimization": "SEO Optimization",
+            "mobileApps": "Mobile Applications",
+            "uxDesign": "UX & UI Design",
+            "ecommerce": "E-commerce Solutions"
+        },
+        "company": {
+            "title": "Navigate",
+            "links": "Quick Links"
+        },
+        "links": {
+            "home": "Home",
+            "portfolio": "Portfolio",
+            "services": "Services",
+            "process": "Process",
+            "about": "About Us"
+        },
+        "contact": {
+            "title": "Contact Us"
+        },
+        "copyright": "All rights reserved.",
+        
+        "backToTop": "Back to top"
     }
 }
