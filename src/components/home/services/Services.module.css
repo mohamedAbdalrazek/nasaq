@@ -1,7 +1,7 @@
 /* components/ServicesSection.module.css */
 
 .services {
-    padding: var(--section-padding) 0;
+    padding: var(--section-padding);
     background: var(--background-secondary);
 }
 
@@ -116,7 +116,15 @@
     border-radius: 50%;
     background: var(--accent-primary);
 }
-
+.arServiceFeatures li{
+    padding-left: 0;
+    padding-right: 1.5rem;
+    text-align: right;
+}
+.arServiceFeatures li::before{
+    left: auto;
+    right: 0;
+}
 .serviceAction {
     margin-top: auto;
 }

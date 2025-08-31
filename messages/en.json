@@ -1,0 +1,131 @@
+{
+    "Nav": {
+        "home": "Home",
+        "portfolio": "Portfolio",
+        "services": "Services",
+        "process": "Our Process",
+        "about": "About Us"
+    },
+    "Landing": {
+        "badge": "Innovating Digital Experiences",
+        "title": "We Craft <highlight>Digital Solutions</highlight> That Drive Your Business Forward",
+        "description": "Nasaq specializes in creating cutting-edge websites and applications that combine elegant design with powerful functionality. Let us transform your vision into reality.",
+        "explore": "Explore Our Work",
+        "start": "Start a Project"
+    },
+    "Portfolio": {
+        "title": "Our Work",
+        "subtitle": "A selection of projects we’ve crafted with modern design, speed, and usability in mind.",
+        "hawyaTitle": "Hawya – Car Rental Company (Saudi Arabia)",
+        "hawyaDesc": "A sleek and modern website designed for a car rental company in Saudi Arabia. Built with responsive layouts and optimized for speed, the site makes it easy for customers to explore vehicle options and book rentals with confidence. Clear navigation and strong visuals highlight the brand’s professionalism and reliability.",
+        "razanTitle": "Razan Academy",
+        "razanDesc": "An educational platform dedicated to teaching Quranic studies to non-Arabic speakers worldwide. The website features an accessible design, and SEO optimization to reach students across different regions. The modern, responsive interface ensures a smooth learning experience on any device.",
+        "clinicTitle": "ENT Clinic – Medical Services (Egypt)",
+        "clinicDesc": "A professional website for an ENT clinic in Egypt, focused on clear communication and patient accessibility. The design emphasizes trust and ease of use, with fast-loading pages, mobile responsiveness, and well-structured service information. Optimized for search engines, the site helps the clinic connect with more patients online.",
+        "afifTitle": "Afif – Landing Page for an AI-Powered Parental App",
+        "afifDesc": "A modern landing page built for Afif, an AI-powered app that helps parents protect their children from inappropriate content. The website was designed to highlight the app’s features and present its mission with clarity and trust. While the client later paused the website, the project showcases clean design and strong usability.",
+        "viewProject": "View Project"
+    },
+    "Services": {
+        "sectionTitle": "Our Services",
+        "sectionSubtitle": "Comprehensive digital solutions tailored to your business needs",
+        "modern": {
+            "title": "Modern Website Design & Development",
+            "description": "Clean, responsive designs that look great on all devices",
+            "feature1": "Focus on usability and accessibility for all users",
+            "feature2": "Tailored to your brand and industry"
+        },
+        "responsive": {
+            "title": "Responsive Web Design",
+            "description": "Websites that adapt seamlessly to all devices",
+            "feature1": "Mobile-first layouts for better user experience",
+            "feature2": "Consistent design across desktops, tablets, and phones"
+        },
+        "seo": {
+            "title": "SEO-Friendly Websites",
+            "description": "Built with SEO best practices from the start",
+            "feature1": "Optimized site structure, meta tags, and speed",
+            "feature2": "Helps you rank higher and attract more customers"
+        },
+        "performance": {
+            "title": "Fast & Optimized Performance",
+            "description": "Lightweight code and optimized assets",
+            "feature1": "Websites that load quickly even on slow networks",
+            "feature2": "Better user experience = higher conversions"
+        },
+        "dashboard": {
+            "title": "Intuitive Dashboards & Management Tools",
+            "description": "Easy-to-use dashboards for content updates",
+            "feature1": "Efficient back-end systems to save your team time",
+            "feature2": "No need for technical skills to manage your site"
+        },
+        "ux": {
+            "title": "UX & Accessibility Excellence",
+            "description": "Clear navigation and smooth user journeys",
+            "feature1": "Accessible for everyone, including people with disabilities",
+            "feature2": "Professional layouts designed to keep visitors engaged"
+        }
+    },
+    "Process": {
+        "title": "Our Process",
+        "subtitle": "Simple, transparent workflow from concept to launch",
+        "steps": [
+            {
+                "title": "Consultation",
+                "description": "We begin with a detailed discussion to understand your goals, target audience, and specific requirements."
+            },
+            {
+                "title": "Planning & Design",
+                "description": "We create a comprehensive project roadmap and design mockups that align with your vision and brand identity."
+            },
+            {
+                "title": "Development",
+                "description": "Our team builds your solution using modern technologies and best practices for optimal performance."
+            },
+            {
+                "title": "Launch & Support",
+                "description": "We deploy your project and provide ongoing maintenance to ensure long-term success and growth."
+            }
+        ],
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "About": {
+        "title": "About",
+        "subtitle": "Pioneering Egypt's Digital Transformation",
+        "mission": {
+            "title": "Our Mission",
+            "text": "At Nasaq, our mission goes beyond building websites—we aim to empower every business in Egypt with the tools and digital presence needed to succeed in a fast-evolving world. We help companies of all sizes embrace technology, from professional websites to scalable online platforms, giving them the visibility, credibility, and reach they deserve. By focusing on innovation and customer needs, we strive to make digital transformation simple, accessible, and impactful for everyone."
+        },
+        "vision": {
+            "title": "Our Vision",
+            "text": "We envision an Egypt where every business, no matter how small or large, thrives in the digital economy. A future where customers no longer struggle to find reliable information, because every service and product is only a click away. We see technology as the bridge that connects businesses with unlimited opportunities, opening doors to global markets, creating sustainable growth, and positioning Egypt as a leader in the digital era."
+        },
+        "values": {
+            "title": "What We Stand For",
+            "items": {
+                "technology": {
+                    "title": "Modern Technology",
+                    "text": "Using cutting-edge frameworks like Next.js, React, and TypeScript..."
+                },
+                "seo": {
+                    "title": "SEO Excellence",
+                    "text": "Building websites that rank well on search engines..."
+                },
+                "mobile": {
+                    "title": "Mobile-First",
+                    "text": "Creating responsive designs that work perfectly on all devices..."
+                },
+                "audience": {
+                    "title": "Audience Focused",
+                    "text": "Designing experiences tailored to your audience and business goals"
+                }
+            }
+        },
+        "cta": {
+            "title": "Join the Digital Revolution",
+            "text": "Ready to transform your business and reach customers online? ...",
+            "button": "Start Your Digital Journey"
+        }
+    }
+}

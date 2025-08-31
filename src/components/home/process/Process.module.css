@@ -1,7 +1,7 @@
 /* components/ProcessSection.module.css */
 
 .process {
-    padding: 5rem 0;
+    padding: var(--section-padding) ;
     background: var(--background-primary);
 }
 
@@ -47,7 +47,10 @@
     left: 0;
     top: 0;
 }
-
+.arProgressFill {
+    right: 0;
+    left: auto;
+}
 /* Steps */
 .steps {
     display: flex;

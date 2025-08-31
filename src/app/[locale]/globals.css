@@ -19,7 +19,7 @@
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
     --transition: all 0.3s ease;
-    --section-padding: 4rem;
+    --section-padding: 8rem 0 4rem 0 ;
 }
 
 /* Light theme variables */

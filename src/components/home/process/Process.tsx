@@ -1,25 +1,19 @@
-// components/ProcessSection.tsx
 "use client";
 
 import { useState } from "react";
 import styles from "./Process.module.css";
+import { useLocale, useTranslations } from "next-intl";
 
 const ProcessSection = () => {
     const [activeStep, setActiveStep] = useState(0);
-
+    const t = useTranslations("Process");
+    const locale = useLocale()
     const steps = [
         {
-            title: "Consultation",
-            description:
-                "We begin with a detailed discussion to understand your goals, target audience, and specific requirements.",
+            title: t("steps.0.title"),
+            description: t("steps.0.description"),
             icon: (
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M8 12H8.01M12 12H12.01M16 12H16.01M21 12C21 16.4183 16.9706 20 12 20C10.4607 20 9.01172 19.6565 7.74467 19.0511L3 20L4.39499 16.28C3.51156 15.0423 3 13.5743 3 12C3 7.58172 7.02944 4 12 4C16.9706 4 21 7.58172 21 12Z"
                         stroke="currentColor"
@@ -31,17 +25,10 @@ const ProcessSection = () => {
             ),
         },
         {
-            title: "Planning & Design",
-            description:
-                "We create a comprehensive project roadmap and design mockups that align with your vision and brand identity.",
+            title: t("steps.1.title"),
+            description: t("steps.1.description"),
             icon: (
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15"
                         stroke="currentColor"
@@ -67,17 +54,10 @@ const ProcessSection = () => {
             ),
         },
         {
-            title: "Development",
-            description:
-                "Our team builds your solution using modern technologies and best practices for optimal performance.",
+            title: t("steps.2.title"),
+            description: t("steps.2.description"),
             icon: (
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M13 17L18 12L13 7"
                         stroke="currentColor"
@@ -96,17 +76,10 @@ const ProcessSection = () => {
             ),
         },
         {
-            title: "Launch & Support",
-            description:
-                "We deploy your project and provide ongoing maintenance to ensure long-term success and growth.",
+            title: t("steps.3.title"),
+            description: t("steps.3.description"),
             icon: (
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
                         stroke="currentColor"
@@ -123,19 +96,18 @@ const ProcessSection = () => {
         <section className={styles.process} id="process">
             <div className="container">
                 <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>
-                        Our <span className="text-gradient">Process</span>
-                    </h2>
-                    <p className={styles.sectionSubtitle}>
-                        Simple, transparent workflow from concept to launch
-                    </p>
+                    <h2
+                        className={styles.sectionTitle}
+                        dangerouslySetInnerHTML={{ __html: t("title") }}
+                    />
+                    <p className={styles.sectionSubtitle}>{t("subtitle")}</p>
                 </div>
 
                 <div className={styles.processContainer}>
                     {/* Progress bar */}
                     <div className={styles.progressBar}>
                         <div
-                            className={styles.progressFill}
+                            className={`${styles.progressFill} ${locale === 'ar' ? styles.arProgressFill : ''}`}
                             style={{
                                 width: `${
                                     (activeStep / (steps.length - 1)) * 100
@@ -160,9 +132,9 @@ const ProcessSection = () => {
                                     <div className={styles.stepIcon}>
                                         {step.icon}
                                     </div>
-                                    <div className={styles.stepNumber}>
+                                    {/* <div className={styles.stepNumber}>
                                         {index + 1}
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <h3 className={styles.stepTitle}>
                                     {step.title}
@@ -189,7 +161,7 @@ const ProcessSection = () => {
                             }
                             disabled={activeStep === 0}
                         >
-                            Previous
+                            {t("previous")}
                         </button>
 
                         <div className={styles.stepDots}>
@@ -215,7 +187,7 @@ const ProcessSection = () => {
                             }
                             disabled={activeStep === steps.length - 1}
                         >
-                            Next
+                            {t("next")}
                         </button>
                     </div>
                 </div>

@@ -1,10 +1,11 @@
 /* components/AboutSection.module.css */
 
 .about {
-    padding: 6rem 0;
+    padding: var(--section-padding);
     background: var(--background-secondary);
     position: relative;
     overflow: hidden;
+
 }
 
 .content {
@@ -40,7 +41,10 @@
     margin-bottom: 1rem;
     color: var(--text-primary);
 }
-
+.mission,
+.vision {
+    text-align: center;
+}
 .mission p,
 .vision p {
     font-size: 1.1rem;

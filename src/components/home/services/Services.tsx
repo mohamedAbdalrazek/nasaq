@@ -1,8 +1,11 @@
-// components/ServicesSection.tsx
+"use client";
+
 import { MdDesignServices, MdDevices, MdSpaceDashboard } from "react-icons/md";
 import styles from "./Services.module.css";
 import { FaBolt, FaChartLine, FaUniversalAccess } from "react-icons/fa";
 import { JSX } from "react";
+import { useLocale, useTranslations } from "next-intl";
+
 interface ServiceMap {
     title: string;
     description: string;
@@ -11,60 +14,43 @@ interface ServiceMap {
 }
 
 const ServicesSection = () => {
-    const services:ServiceMap[] = [
+    const t = useTranslations("Services");
+    const locale = useLocale()
+    const services: ServiceMap[] = [
         {
-            title: "Modern Website Design & Development",
-            description:
-                "Clean, responsive designs that look great on all devices",
-            features: [
-                "Focus on usability and accessibility for all users",
-                "Tailored to your brand and industry",
-            ],
+            title: t("modern.title"),
+            description: t("modern.description"),
+            features: [t("modern.feature1"), t("modern.feature2")],
             icon: <MdDesignServices className={styles.icon} />,
         },
         {
-            title: "Responsive Web Design",
-            description: "Websites that adapt seamlessly to all devices",
-            features: [
-                "Mobile-first layouts for better user experience",
-                "Consistent design across desktops, tablets, and phones",
-            ],
+            title: t("responsive.title"),
+            description: t("responsive.description"),
+            features: [t("responsive.feature1"), t("responsive.feature2")],
             icon: <MdDevices className={styles.icon} />,
         },
         {
-            title: "SEO-Friendly Websites",
-            description: "Built with SEO best practices from the start",
-            features: [
-                "Optimized site structure, meta tags, and speed",
-                "Helps you rank higher and attract more customers",
-            ],
+            title: t("seo.title"),
+            description: t("seo.description"),
+            features: [t("seo.feature1"), t("seo.feature2")],
             icon: <FaChartLine className={styles.icon} />,
         },
         {
-            title: "Fast & Optimized Performance",
-            description: "Lightweight code and optimized assets",
-            features: [
-                "Websites that load quickly even on slow networks",
-                "Better user experience = higher conversions",
-            ],
+            title: t("performance.title"),
+            description: t("performance.description"),
+            features: [t("performance.feature1"), t("performance.feature2")],
             icon: <FaBolt className={styles.icon} />,
         },
         {
-            title: "Intuitive Dashboards & Management Tools",
-            description: "Easy-to-use dashboards for content updates",
-            features: [
-                "Efficient back-end systems to save your team time",
-                "No need for technical skills to manage your site",
-            ],
+            title: t("dashboard.title"),
+            description: t("dashboard.description"),
+            features: [t("dashboard.feature1"), t("dashboard.feature2")],
             icon: <MdSpaceDashboard className={styles.icon} />,
         },
         {
-            title: "UX & Accessibility Excellence",
-            description: "Clear navigation and smooth user journeys",
-            features: [
-                "Accessible for everyone, including people with disabilities",
-                "Professional layouts designed to keep visitors engaged",
-            ],
+            title: t("ux.title"),
+            description: t("ux.description"),
+            features: [t("ux.feature1"), t("ux.feature2")],
             icon: <FaUniversalAccess className={styles.icon} />,
         },
     ];
@@ -74,11 +60,10 @@ const ServicesSection = () => {
             <div className="container">
                 <div className={styles.sectionHeader}>
                     <h2 className={styles.sectionTitle}>
-                        Our <span className="text-gradient">Services</span>
+                        {t("sectionTitle")}
                     </h2>
                     <p className={styles.sectionSubtitle}>
-                        Comprehensive digital solutions tailored to your
-                        business needs
+                        {t("sectionSubtitle")}
                     </p>
                 </div>
 
@@ -94,12 +79,10 @@ const ServicesSection = () => {
                             <p className={styles.serviceDescription}>
                                 {service.description}
                             </p>
-                            <ul className={styles.serviceFeatures}>
-                                {service.features.map(
-                                    (feature, featureIndex) => (
-                                        <li key={featureIndex}>{feature}</li>
-                                    )
-                                )}
+                            <ul className={`${styles.serviceFeatures} ${locale === 'ar' ? styles.arServiceFeatures : ''}`}>
+                                {service.features.map((feature, fIndex) => (
+                                    <li key={fIndex}>{feature}</li>
+                                ))}
                             </ul>
                         </div>
                     ))}
