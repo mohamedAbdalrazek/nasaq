@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import styles from "./Nav.module.css";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 
@@ -11,6 +11,7 @@ const Navigation = () => {
     const [activeSection, setActiveSection] = useState("home");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const pathname = usePathname()
     const language = useLocale();
     const t = useTranslations("Nav");
     const navItems = useMemo(
@@ -73,9 +74,10 @@ const Navigation = () => {
         >
             <div className={`container ${styles.navContainer}`}>
                 {/* Logo */}
-                <div
+                <Link
                     className={styles.logo}
                     onClick={() => scrollToSection("home")}
+                    href={"/"}
                 >
                     {language === "en" ? (
                         <span className={styles.logoText}>Nasaq</span>
@@ -87,10 +89,10 @@ const Navigation = () => {
                             src={"/logo-white-transparent.png"}
                         />
                     )}
-                </div>
+                </Link>
 
                 {/* Desktop Navigation */}
-                <div className={styles.navItems}>
+                {pathname==="/" && <div className={styles.navItems}>
                     {navItems.map((item) => (
                         <button
                             key={item.id}
@@ -105,7 +107,7 @@ const Navigation = () => {
                             <span className={styles.linkHover}></span>
                         </button>
                     ))}
-                </div>
+                </div>}
 
                 {/* Right side controls */}
                 <div className={styles.navControls}>
@@ -115,7 +117,7 @@ const Navigation = () => {
                             className={
                                 language === "en" ? styles.activeLang : ""
                             }
-                            href={"/"}
+                            href={pathname}
                             locale="en"
                         >
                             English
@@ -125,7 +127,7 @@ const Navigation = () => {
                             className={
                                 language === "ar" ? styles.activeLang : ""
                             }
-                            href={"/"}
+                            href={pathname}
                             locale="ar"
                         >
                             عربي
@@ -176,7 +178,7 @@ const Navigation = () => {
                     language === "ar" ? styles.arActiveIndicator : ""
                 }`}
                 style={{
-                    width: `${100 / navItems.length}%`,
+                    width: `${pathname === "/"?100 / navItems.length:100}%`,
                     transform: `translateX(${language === "ar" ? "-" : ""}${
                         navItems.findIndex(
                             (item) => item.id === activeSection

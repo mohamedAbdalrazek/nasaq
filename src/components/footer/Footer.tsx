@@ -5,13 +5,14 @@ import { useLocale, useTranslations } from "next-intl";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "@/i18n/navigation";
 
 const Footer = () => {
     const locale = useLocale();
     const t = useTranslations("Footer");
     const currentYear = new Date().getFullYear();
     const [isScrolled, setIsScrolled] = useState(false);
-
+    const pathname = usePathname();
     const scrollToSection = (sectionId: string) => {
         const section = document.getElementById(sectionId);
         if (section) {
@@ -22,9 +23,6 @@ const Footer = () => {
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
-
-
-            
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -125,23 +123,27 @@ const Footer = () => {
                     </div>
 
                     {/* Company Links */}
-                    <div className={styles.footerSection}>
-                        <h3 className={styles.sectionTitle}>
-                            {t("company.title")}
-                        </h3>
-                        <ul className={styles.footerLinks}>
-                            {companyLinks.map((link) => (
-                                <li key={link.id}>
-                                    <button
-                                        onClick={() => scrollToSection(link.id)}
-                                        className={styles.footerLink}
-                                    >
-                                        {link.label}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {pathname === "/" && (
+                        <div className={styles.footerSection}>
+                            <h3 className={styles.sectionTitle}>
+                                {t("company.title")}
+                            </h3>
+                            <ul className={styles.footerLinks}>
+                                {companyLinks.map((link) => (
+                                    <li key={link.id}>
+                                        <button
+                                            onClick={() =>
+                                                scrollToSection(link.id)
+                                            }
+                                            className={styles.footerLink}
+                                        >
+                                            {link.label}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     {/* Contact Information */}
                     <div className={styles.footerSection}>
@@ -171,7 +173,7 @@ const Footer = () => {
                                 >
                                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 12H4v-2h9v2zm5-4H4v-2h14v2z" />
                                 </svg>
-                                <span>+20 123 456 7890</span>
+                                <span>+201005798846</span>
                             </div>
                             <div className={styles.contactItem}>
                                 <svg

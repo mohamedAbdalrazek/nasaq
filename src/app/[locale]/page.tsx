@@ -109,7 +109,7 @@ export default function Home() {
                 ref={canvasRef}
                 className={styles.backgroundCanvas}
             ></canvas>
-            
+
             {/* Hero Section */}
             <Landing />
             <PortfolioSection />

@@ -5,6 +5,7 @@ import { MdMobileFriendly, MdRocket, MdSearch } from "react-icons/md";
 import { GiBullseye } from "react-icons/gi";
 import styles from "./About.module.css";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const AboutSection = () => {
     const t = useTranslations("About");
@@ -80,9 +81,9 @@ const AboutSection = () => {
                         <div className={styles.cta}>
                             <h3>{t("cta.title")}</h3>
                             <p>{t("cta.text")}</p>
-                            <button className="btn btn-primary">
+                            <Link href={"/get-started"} className="btn btn-primary">
                                 {t("cta.button")}
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

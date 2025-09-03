@@ -153,7 +153,126 @@
             "title": "Contact Us"
         },
         "copyright": "All rights reserved.",
-        
         "backToTop": "Back to top"
+    },
+    "Form": {
+        "title": "Create Your Website With Us",
+        "subtitle": "Answer a few questions to help us understand your needs and provide the perfect solution",
+        "steps": {
+            "1": "Business Information",
+            "2": "Website Details",
+            "3": "Design Preferences",
+            "4": "Timeline & Budget",
+            "5": "Contact Information"
+        },
+        "stepTitles": {
+            "business": "Tell us about your business",
+            "website": "Website Requirements",
+            "design": "Design Preferences",
+            "timeline": "Project Timeline & Budget",
+            "contact": "Contact Information"
+        },
+        "labels": {
+            "businessName": "Business Name",
+            "industry": "Industry",
+            "websitePurpose": "Main Purpose of Website",
+            "targetAudience": "Target Audience",
+            "desiredFeatures": "Desired Features",
+            "hasWebsite": "I already have an existing website",
+            "websiteUrl": "Current Website URL",
+            "colorPreferences": "Color Preferences",
+            "exampleWebsites": "Example Websites You Like",
+            "timeline": "Preferred Timeline",
+            "budgetRange": "Budget Range",
+            "projectUrgency": "Project Urgency",
+            "contactName": "Your Name",
+            "contactEmail": "Email Address",
+            "contactPhone": "Phone Number",
+            "contactMethod": "Preferred Contact Method",
+            "additionalNotes": "Additional Notes or Questions"
+        },
+        "placeholders": {
+            "websitePurpose": "What do you want to achieve with your website? (e.g., sell products, generate leads, provide information)",
+            "targetAudience": "Who are your ideal customers? (e.g., young professionals, families, businesses)",
+            "colorPreferences": "e.g., Blue and white, Brand colors, Open to suggestions",
+            "exampleWebsites": "Please share URLs of websites whose design you admire",
+            "websiteUrl": "https://www.yourwebsite.com",
+            "additionalNotes": "Anything else you'd like us to know about your project..."
+        },
+        "errors": {
+            "requiredBusiness": "Business name is required",
+            "requiredIndustry": "Please select your industry",
+            "requiredPurpose": "Please describe the website purpose",
+            "requiredAudience": "Please describe your target audience",
+            "requiredFeatures": "Please select at least one feature",
+            "requiredTimeline": "Please select a timeline",
+            "requiredBudget": "Please select a budget range",
+            "requiredName": "Your name is required",
+            "requiredEmail": "Email is required",
+            "invalidEmail": "Please enter a valid email address",
+            "requiredPhone": "Phone number is required",
+            "requiredMethod": "Please select preferred contact method"
+        },
+        "buttons": {
+            "previous": "Previous",
+            "next": "Next",
+            "submit": "Submit Request"
+        },
+        "stepIndicator": "Step {current} of {total}",
+        "industries": {
+            "title": "Select an industry",
+            "retail": "Retail & E-commerce",
+            "restaurant": "Restaurant & Food",
+            "healthcare": "Healthcare & Medical",
+            "education": "Education",
+            "services": "Professional Services",
+            "realEstate": "Real Estate",
+            "technology": "Technology",
+            "creative": "Creative & Arts",
+            "nonProfit": "Non-profit",
+            "other": "Other"
+        },
+        "features": {
+            "title": "Features",
+            "contactForm": "Contact Form",
+            "booking": "Online Booking",
+            "ecommerce": "E-commerce",
+            "blog": "Blog",
+            "gallery": "Gallery",
+            "accounts": "User Accounts",
+            "multiLanguage": "Multi-language",
+            "seo": "SEO Optimization",
+            "dashboard": "Custom Dashboard / Admin Panel"
+        },
+        "budget": {
+            "title": "Budget Range",
+            "under300": "Under $300",
+            "300to500": "$300 - $500",
+            "500to1000": "$500 - $1,000",
+            "1000to2000": "$1,000 - $2,000",
+            "2000to3500": "$2,000 - $3,500",
+            "3500plus": "$3,500+"
+        },
+        "timelines": {
+            "title": "Website timeline",
+            "asap": "ASAP (Within 2 weeks)",
+            "oneMonth": "Within 1 month",
+            "twoThreeMonths": "Within 2-3 months",
+            "flexible": "Flexible timeline",
+            "notSure": "Not sure yet"
+        },
+        "contactMethod": {
+            "select": "Select a method",
+            "email": "Email",
+            "phone": "Phone Call",
+            "whatsapp": "WhatsApp",
+            "any": "Any Method"
+        },
+        "urgency": {
+            "select": "Select Urgency Level",
+            "urgent": "Urgent - Need it ASAP",
+            "moderate": "Moderate - Important but flexible",
+            "planning": "Planning Phase - Just exploring options"
+        }
     }
 }

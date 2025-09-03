@@ -1,7 +1,7 @@
 /* components/Footer.module.css */
 
 .footer {
-    background: var(--background-secondary);
+    background: var(--background-primary);
     border-top: 1px solid var(--background-tertiary);
     padding: 4rem 0 1rem;
     position: relative;

@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./Landing.module.css";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { scrollToSection } from "@/lib/functions";
 
 export default function Landing() {
     const t = useTranslations("Landing");
@@ -28,8 +29,10 @@ export default function Landing() {
                     />
                     <p className={styles.heroDescription}>{t("description")}</p>
                     <div className={styles.heroButtons}>
-                        <Link
-                            href="/portfolio"
+                        <button
+                            onClick={() => {
+                                scrollToSection("portfolio")
+                            }}
                             className={`btn btn-primary ${styles.heroBtn}`}
                         >
                             {t("explore")}
@@ -48,9 +51,9 @@ export default function Landing() {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                        </Link>
+                        </button>
                         <Link
-                            href="/contact"
+                            href="/get-started"
                             className={`btn btn-secondary ${styles.heroBtn}`}
                         >
                             {t("start")}
