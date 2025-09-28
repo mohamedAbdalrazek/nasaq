@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: 1rem ;
     position: relative;
 }
 
@@ -155,7 +155,7 @@
     background: none;
     border: none;
     width: 24px;
-    height: 24px;
+    height: fit-content;
     cursor: pointer;
     padding: 0;
     gap: 4px;
@@ -170,7 +170,7 @@
 }
 
 .menuToggle.open span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: rotate(45deg) translate(6px, 3px);
 }
 
 .menuToggle.open span:nth-child(2) {
@@ -178,7 +178,7 @@
 }
 
 .menuToggle.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(6px, -3px);
 }
 
 /* Mobile Menu */
@@ -263,9 +263,7 @@
         display: flex;
     }
 
-    .navContainer {
-        padding: 0.75rem 0;
-    }
+    
 }
 
 @media (max-width: 480px) {

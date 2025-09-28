@@ -139,12 +139,15 @@
         font-size: 2rem;
     }
 
-    .servicesGrid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+    
 
     .serviceCard {
         padding: 2rem 1.5rem;
+    }
+}
+@media (max-width: 500px) {
+.servicesGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }

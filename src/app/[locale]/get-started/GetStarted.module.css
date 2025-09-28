@@ -267,9 +267,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .form {
-        padding: 1.5rem;
-    }
+    
 
     .formTitle {
         font-size: 2rem;
@@ -302,8 +300,8 @@
 }
 
 @media (max-width: 480px) {
-    .formSection {
-        padding: 2rem 0;
+    .form{
+        padding: 2rem 1rem;
     }
 
     .formHeader {

@@ -5,39 +5,15 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./GetStarted.module.css";
 import { useTranslations } from "next-intl";
-
-type FormData = {
-    // Step 1: Basic Information
-    businessName: string;
-    industry: string;
-
-    // Step 2: Website Details
-    websitePurpose: string;
-    targetAudience: string;
-    desiredFeatures: string[];
-    hasExistingWebsite: boolean;
-    existingWebsiteUrl?: string;
-
-    // Step 3: Design Preferences
-    colorPreferences: string;
-    exampleWebsites?: string;
-
-    // Step 5: Timeline & Budget
-    timeline: string;
-    budgetRange: string;
-    projectUrgency: string;
-
-    // Step 6: Contact Information
-    contactName: string;
-    contactEmail: string;
-    contactPhone: string;
-    contactMethod: string;
-    additionalNotes?: string;
-};
+import toast from "react-hot-toast";
+import { useRouter } from "@/i18n/navigation";
+import { FormData } from "@/lib/types";
 
 const WebsiteCreationForm = () => {
     const [currentStep, setCurrentStep] = useState(1);
     const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+    const [sending, setSending] = useState(false);
+    const router = useRouter();
     const t = useTranslations("Form");
     const totalSteps = 5;
 
@@ -47,6 +23,7 @@ const WebsiteCreationForm = () => {
         watch,
         formState: { errors },
         trigger,
+        reset,
     } = useForm<FormData>({
         defaultValues: {
             desiredFeatures: [],
@@ -133,10 +110,34 @@ const WebsiteCreationForm = () => {
         t("timelines.notSure"),
     ];
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log("Form submitted:", data);
-        // Here you would typically send the data to your backend
-        alert("Thank you for your submission! We will contact you soon.");
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        try {
+            setSending(true);
+            const res = await fetch("/api/booking/post", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (!res.ok) {
+                // Parse error response
+                throw new Error("Failed to submit booking");
+            }
+
+            const resData = await res.json();
+            if (!resData.ok) {
+                throw new Error(resData.error || "Failed to submit booking");
+            }
+            router.push(`confirmation/${resData.id}`);
+            toast.success("Booking request submitted successfully!");
+            reset();
+        } catch (err) {
+            const message = err instanceof Error ? err.message : String(err);
+            toast.error(message);
+            console.error("Booking request failed:", err);
+        } finally {
+            setSending(false);
+        }
     };
 
     const nextStep = async () => {
@@ -193,13 +194,14 @@ const WebsiteCreationForm = () => {
                     <div className={styles.stepIndicators}>
                         {steps.map((step, index) => (
                             <button
+                                disabled={sending}
                                 key={index}
                                 className={`${styles.stepDot} ${
                                     currentStep === index + 1
                                         ? styles.active
                                         : completedSteps.includes(index + 1)
-                                        ? styles.completed
-                                        : ""
+                                          ? styles.completed
+                                          : ""
                                 }`}
                                 onClick={() => goToStep(index + 1)}
                                 aria-label={`Go to step ${index + 1}: ${
@@ -306,7 +308,7 @@ const WebsiteCreationForm = () => {
                                             : ""
                                     }
                                     placeholder={t(
-                                        "placeholders.websitePurpose"
+                                        "placeholders.websitePurpose",
                                     )}
                                 />
                                 {errors.websitePurpose && (
@@ -335,7 +337,7 @@ const WebsiteCreationForm = () => {
                                             : ""
                                     }
                                     placeholder={t(
-                                        "placeholders.targetAudience"
+                                        "placeholders.targetAudience",
                                     )}
                                 />
                                 {errors.targetAudience && (
@@ -365,9 +367,9 @@ const WebsiteCreationForm = () => {
                                                     "desiredFeatures",
                                                     {
                                                         required: t(
-                                                            "errors.requiredFeatures"
+                                                            "errors.requiredFeatures",
                                                         ),
-                                                    }
+                                                    },
                                                 )}
                                             />
                                             <span
@@ -406,7 +408,7 @@ const WebsiteCreationForm = () => {
                                             type="url"
                                             {...register("existingWebsiteUrl")}
                                             placeholder={t(
-                                                "placeholders.websiteUrl"
+                                                "placeholders.websiteUrl",
                                             )}
                                         />
                                     </div>
@@ -431,7 +433,7 @@ const WebsiteCreationForm = () => {
                                     type="text"
                                     {...register("colorPreferences")}
                                     placeholder={t(
-                                        "placeholders.colorPreferences"
+                                        "placeholders.colorPreferences",
                                     )}
                                 />
                             </div>
@@ -445,7 +447,7 @@ const WebsiteCreationForm = () => {
                                     rows={3}
                                     {...register("exampleWebsites")}
                                     placeholder={t(
-                                        "placeholders.exampleWebsites"
+                                        "placeholders.exampleWebsites",
                                     )}
                                 />
                             </div>
@@ -531,7 +533,9 @@ const WebsiteCreationForm = () => {
                                     id="projectUrgency"
                                     {...register("projectUrgency")}
                                 >
-                                    <option value="">{t("urgency.select")}</option>
+                                    <option value="">
+                                        {t("urgency.select")}
+                                    </option>
                                     <option value="urgent">
                                         {t("urgency.urgent")}
                                     </option>
@@ -590,7 +594,7 @@ const WebsiteCreationForm = () => {
                                     {...register("contactEmail", {
                                         required: t("errors.requiredEmail"),
                                         pattern: {
-                                            value: /^\S+@\S+$/i,
+                                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                             message: t("errors.invalidEmail"),
                                         },
                                     })}
@@ -617,6 +621,10 @@ const WebsiteCreationForm = () => {
                                     type="tel"
                                     {...register("contactPhone", {
                                         required: t("errors.requiredPhone"),
+                                        minLength: {
+                                            value: 10,
+                                            message: t("errors.invalidPhone"),
+                                        },
                                     })}
                                     className={
                                         errors.contactPhone ? styles.error : ""
@@ -677,7 +685,7 @@ const WebsiteCreationForm = () => {
                                     rows={4}
                                     {...register("additionalNotes")}
                                     placeholder={t(
-                                        "placeholders.additionalNotes"
+                                        "placeholders.additionalNotes",
                                     )}
                                 />
                             </div>
@@ -688,6 +696,7 @@ const WebsiteCreationForm = () => {
                     <div className={styles.formNavigation}>
                         {currentStep > 1 && (
                             <button
+                                disabled={sending}
                                 type="button"
                                 onClick={prevStep}
                                 className={styles.navButton}
@@ -698,6 +707,7 @@ const WebsiteCreationForm = () => {
 
                         {currentStep < totalSteps ? (
                             <button
+                                disabled={sending}
                                 type="button"
                                 onClick={nextStep}
                                 className={styles.navButtonPrimary}
@@ -706,10 +716,13 @@ const WebsiteCreationForm = () => {
                             </button>
                         ) : (
                             <button
+                                disabled={sending}
                                 type="submit"
                                 className={styles.submitButton}
                             >
-                                {t("buttons.submit")}
+                                {sending
+                                    ? t("buttons.sending")
+                                    : t("buttons.submit")}
                             </button>
                         )}
                     </div>
@@ -717,9 +730,11 @@ const WebsiteCreationForm = () => {
 
                 {/* Step Indicator */}
                 <div className={styles.stepInfo}>
-                    {steps[currentStep - 1].title} {" "}|{" "}
-                    {t("stepIndicator", { current: currentStep, total: totalSteps})}
-
+                    {steps[currentStep - 1].title} |{" "}
+                    {t("stepIndicator", {
+                        current: currentStep,
+                        total: totalSteps,
+                    })}
                 </div>
             </div>
         </section>

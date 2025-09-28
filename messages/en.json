@@ -211,12 +211,14 @@
             "requiredEmail": "Email is required",
             "invalidEmail": "Please enter a valid email address",
             "requiredPhone": "Phone number is required",
+            "invalidPhone": "Please enter a valid phone number",
             "requiredMethod": "Please select preferred contact method"
         },
         "buttons": {
             "previous": "Previous",
             "next": "Next",
-            "submit": "Submit Request"
+            "submit": "Submit Request",
+            "sending":"Sending..."
         },
         "stepIndicator": "Step {current} of {total}",
         "industries": {

@@ -211,6 +211,7 @@
             "requiredEmail": "البريد الإلكتروني مطلوب",
             "invalidEmail": "من فضلك أدخل بريد إلكتروني صحيح",
             "requiredPhone": "رقم الهاتف مطلوب",
+            "invalidPhone": "من فضلك أدخل رقم هاتف صحيح",   
             "requiredMethod": "من فضلك اختر طريقة التواصل المفضلة"
         },
         "buttons": {

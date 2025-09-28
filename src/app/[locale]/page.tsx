@@ -38,8 +38,9 @@ export default function Home() {
             color: string;
         }> = [];
 
-        // Create particles
-        for (let i = 0; i < 150; i++) {
+        const particaleCount = Math.floor(window.innerWidth / 9);
+        console.log({particaleCount})
+        for (let i = 0; i < particaleCount ; i++) {
             const size = Math.random() * 2 + 1;
             const x = Math.random() * canvas.width;
             const y = Math.random() * canvas.height;

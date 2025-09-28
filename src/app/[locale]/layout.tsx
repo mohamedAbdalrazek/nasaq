@@ -4,6 +4,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import Navigation from "@/components/nav/Nav";
 import Footer from "@/components/footer/Footer";
+import { Toaster } from "react-hot-toast";
 type Props = {
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
@@ -30,6 +31,7 @@ export default async function RootLayout({ children, params }: Props) {
                     {children}
 
                     <Footer />
+                    <Toaster position="top-center" reverseOrder={false} />
                 </NextIntlClientProvider>
             </body>
         </html>
