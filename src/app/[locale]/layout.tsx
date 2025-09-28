@@ -5,19 +5,78 @@ import { notFound } from "next/navigation";
 import Navigation from "@/components/nav/Nav";
 import Footer from "@/components/footer/Footer";
 import { Toaster } from "react-hot-toast";
+import Head from "next/head";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { BASE_URL } from "@/lib/constants";
 type Props = {
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
 };
-export const metadata = {
-    title: "Nasaq - Modern Websites for Growing Businesses",
-    description:
-        "Nasaq is a web development agency specializing in creating modern, responsive websites that help businesses grow and succeed online. We focus on clean design, usability, and performance to deliver exceptional digital experiences.",
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: "Meta.home" });
 
-    icons: {
-        icon: "/logo-white-transparent.png",
-    },
-};
+    return {
+        title: t("title", {
+            default: "Nasaq | Websites & Applications in Egypt",
+        }),
+        description: t("description", {
+            default:
+                "Nasaq pioneers Egypt’s digital transformation by building professional websites, scalable applications, and innovative platforms to empower businesses in the modern economy.",
+        }),
+        keywords: t("keywords", {
+            default:
+                "Nasaq, Egypt websites, website development, mobile apps, digital transformation, Next.js, React, TypeScript, SEO, web applications, Egypt tech company",
+        })
+            .split(",")
+            .map((kw: string) => kw.trim()),
+        openGraph: {
+            title: t("ogTitle", {
+                default: "Nasaq – Pioneering Egypt's Digital Transformation",
+            }),
+            description: t("ogDescription", {
+                default:
+                    "We empower businesses in Egypt with professional websites, mobile apps, and scalable online platforms. Nasaq makes digital transformation simple, accessible, and impactful.",
+            }),
+            url: `${BASE_URL}`,
+            siteName: `Nasaq`,
+            type: `website`,
+            images: [
+                {
+                    url: `${BASE_URL}/og/home.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: t("ogAlt", {
+                        default: "Nasaq digital company in Egypt",
+                    }),
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: t("twitterTitle", {
+                default: "Nasaq | Web & App Development in Egypt",
+            }),
+            description: t("twitterDescription", {
+                default:
+                    "Building websites and apps that help Egyptian businesses thrive in the digital era. Explore how Nasaq transforms ideas into powerful online experiences.",
+            }),
+            images: [`${BASE_URL}/og/home.png`],
+        },
+        alternates: {
+            canonical: `${BASE_URL}/`,
+            languages: {
+                en: `${BASE_URL}/en`,
+                ar: `${BASE_URL}/ar`,
+            },
+        },
+    };
+}
 export default async function RootLayout({ children, params }: Props) {
     const { locale } = await params;
     if (!hasLocale(routing.locales, locale)) {
@@ -25,6 +84,9 @@ export default async function RootLayout({ children, params }: Props) {
     }
     return (
         <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+            <Head>
+                <meta name="apple-mobile-web-app-title" content="Nasaq" />
+            </Head>
             <body>
                 <NextIntlClientProvider>
                     <Navigation />

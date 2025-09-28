@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /confirmation
+
+Sitemap: https://nasaq-psi.vercel.app/sitemap.xml

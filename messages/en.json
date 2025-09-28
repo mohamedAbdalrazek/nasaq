@@ -1,4 +1,26 @@
 {
+    "Meta": {
+        "home": {
+            "title": "Nasaq | Websites & Applications in Egypt",
+            "description": "Nasaq pioneers Egypt’s digital transformation by building professional websites, scalable applications, and innovative platforms to empower businesses in the modern economy.",
+            "keywords": "Nasaq, Egypt websites, website development, mobile apps, digital transformation, Next.js, React, TypeScript, SEO, web applications, Egypt tech company",
+            "ogTitle": "Nasaq – Pioneering Egypt's Digital Transformation",
+            "ogDescription": "We empower businesses in Egypt with professional websites, mobile apps, and scalable online platforms. Nasaq makes digital transformation simple, accessible, and impactful.",
+            "ogAlt": "Nasaq digital company in Egypt",
+            "twitterTitle": "Nasaq | Web & App Development in Egypt",
+            "twitterDescription": "Building websites and apps that help Egyptian businesses thrive in the digital era. Explore how Nasaq transforms ideas into powerful online experiences."
+        },
+        "apply": {
+            "title": "Apply | Request a Website or App with Nasaq",
+            "description": "Fill out Nasaq’s application form to request a website, mobile app, or digital solution tailored to your business. Share your goals, timeline, and budget to start your project today.",
+            "keywords": "apply to Nasaq, request website Egypt, website development form, app development Egypt, digital services application, business website request, custom website Egypt, project consultation",
+            "ogTitle": "Apply to Nasaq – Start Your Digital Project",
+            "ogDescription": "Submit your application to Nasaq and request professional websites, mobile apps, or custom digital platforms designed to grow your business.",
+            "ogAlt": "Apply for digital services at Nasaq",
+            "twitterTitle": "Apply | Nasaq Digital Services",
+            "twitterDescription": "Fill out Nasaq’s application form to request websites, apps, and digital solutions that match your business needs."
+        }
+    },
     "Nav": {
         "home": "Home",
         "portfolio": "Portfolio",
@@ -218,7 +240,7 @@
             "previous": "Previous",
             "next": "Next",
             "submit": "Submit Request",
-            "sending":"Sending..."
+            "sending": "Sending..."
         },
         "stepIndicator": "Step {current} of {total}",
         "industries": {
