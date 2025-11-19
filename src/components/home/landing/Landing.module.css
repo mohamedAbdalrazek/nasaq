@@ -22,7 +22,7 @@
 
 .badge {
     display: inline-block;
-    background: rgba(107, 78, 255, 0.2);
+    background-color: rgb(159, 223, 252, .2);
     color: var(--accent-primary);
     padding: 0.5rem 1rem;
     border-radius: 50px;

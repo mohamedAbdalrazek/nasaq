@@ -5,12 +5,13 @@
     /* Dark theme (default) */
     --background-primary: rgb(18, 18, 18);
     --background-secondary: rgb(30, 30, 30);
+    --test:rgb(107, 78, 255);
     --background-tertiary: #2d2d2d;
     --text-primary: #f0f0f0;
     --text-secondary: #a0a0a0;
-    --accent-primary: #6b4eff;
-    --accent-secondary: #8e7dff;
-    --accent-gradient: linear-gradient(135deg, #6b4eff, #8e7dff);
+    --accent-primary: rgb(80, 161, 210);
+    --accent-secondary: rgb(159, 223, 252);
+    --accent-gradient: linear-gradient(135deg, #ab9ffc, #50A1D2);
     --success: #4caf50;
     --warning: #ff9800;
     --error: #f44336;
@@ -29,8 +30,8 @@
     --background-tertiary: #e8e8e8;
     --text-primary: #222222;
     --text-secondary: #666666;
-    --accent-primary: #4a36c9;
-    --accent-secondary: #6350e6;
+    --accent-primary: #50A1D2;
+    --accent-secondary: #ab9ffc;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);

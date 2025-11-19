@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BASE_URL } from "@/lib/constants";
-import WebsiteForm from "./WebsiteForm";
+import GetStarted from "./GetStarted";
 
 export async function generateMetadata({
     params,
@@ -69,5 +69,5 @@ export async function generateMetadata({
     };
 }
 export default function page() {
-    return <WebsiteForm />;
+    return <GetStarted />;
 }

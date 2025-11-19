@@ -47,9 +47,9 @@ export default function Home() {
             const speedX = (Math.random() - 0.5) * 0.7;
             const speedY = (Math.random() - 0.5) * 0.5;
             const colors = [
-                "rgba(107, 78, 255, 0.5)",
-                "rgba(142, 125, 255, 0.5)",
-                "rgba(76, 175, 80, 0.3)",
+                "rgba(80, 161, 210, .5)",
+                "rgba(171, 159, 252, .5)",
+                "rgba(76, 175, 80, 0.5)",
                 "rgba(255, 152, 0, 0.3)",
             ];
             const color = colors[Math.floor(Math.random() * colors.length)];
@@ -86,7 +86,7 @@ export default function Home() {
 
                     if (distance < 100) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(107, 78, 255, ${
+                        ctx.strokeStyle = `rgba(80, 161, 210, ${
                             1 - distance / 100
                         })`;
                         ctx.lineWidth = 0.5;

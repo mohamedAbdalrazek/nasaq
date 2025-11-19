@@ -8,16 +8,18 @@ import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 import { useRouter } from "@/i18n/navigation";
 import { FormData } from "@/lib/types";
+import { useFormTranslations } from "@/hooks/useFormTranslations";
+import { useSteps } from "@/hooks/useSteps";
+import FormHeader from "./FormHeader";
+import FormProgressBar from "./FormProgressBar";
 
-
-const WebsiteForm = () => {
-    const [currentStep, setCurrentStep] = useState(1);
-    const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+const GetStarted = () => {
     const [sending, setSending] = useState(false);
     const router = useRouter();
     const t = useTranslations("Form");
     const totalSteps = 5;
-
+    const { industries, features, budgetRanges, timelines } =
+        useFormTranslations();
     const {
         register,
         handleSubmit,
@@ -69,48 +71,6 @@ const WebsiteForm = () => {
         },
     ];
 
-    const industries = [
-        t("industries.retail"),
-        t("industries.restaurant"),
-        t("industries.healthcare"),
-        t("industries.education"),
-        t("industries.services"),
-        t("industries.realEstate"),
-        t("industries.technology"),
-        t("industries.creative"),
-        t("industries.nonProfit"),
-        t("industries.other"),
-    ];
-
-    const features = [
-        t("features.contactForm"),
-        t("features.booking"),
-        t("features.ecommerce"),
-        t("features.blog"),
-        t("features.gallery"),
-        t("features.accounts"),
-        t("features.multiLanguage"),
-        t("features.seo"),
-        t("features.dashboard"),
-    ];
-
-    const budgetRanges = [
-        t("budget.under300"),
-        t("budget.300to500"),
-        t("budget.500to1000"),
-        t("budget.1000to2000"),
-        t("budget.2000to3500"),
-        t("budget.3500plus"),
-    ];
-
-    const timelines = [
-        t("timelines.asap"),
-        t("timelines.oneMonth"),
-        t("timelines.twoThreeMonths"),
-        t("timelines.flexible"),
-        t("timelines.notSure"),
-    ];
-
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         try {
             setSending(true);
@@ -141,81 +101,21 @@ const WebsiteForm = () => {
         }
     };
 
-    const nextStep = async () => {
-        const currentFields = steps[currentStep - 1].fields;
-
-        // Trigger validation only for current step's fields
-        const isStepValid = await trigger(currentFields as (keyof FormData)[], {
-            shouldFocus: true,
-        });
-
-        if (!isStepValid) {
-            return; // stop if validation fails
-        }
-
-        // Mark step as completed if not already
-        if (!completedSteps.includes(currentStep)) {
-            setCompletedSteps((prev) => [...prev, currentStep]);
-        }
-
-        // Move to next step safely
-        setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
-    };
-
-    const prevStep = () => {
-        setCurrentStep((prev) => Math.max(prev - 1, 1));
-    };
-
-    const goToStep = (step: number) => {
-        if (completedSteps.includes(step - 1) || step === 1) {
-            setCurrentStep(step);
-        }
-    };
+    const { nextStep, prevStep, goToStep, currentStep } =
+        useSteps(steps, trigger, totalSteps);
 
     return (
         <section className={styles.formSection} id="create-website">
             <div className="container">
-                <div className={styles.formHeader}>
-                    <h2 className={styles.formTitle}>{t("title")}</h2>
-                    <p className={styles.formSubtitle}>{t("subtitle")}</p>
-                </div>
+                <FormHeader />
 
-                {/* Progress Bar */}
-                <div className={styles.progressContainer}>
-                    <div className={styles.progressBar}>
-                        <div
-                            className={styles.progressFill}
-                            style={{
-                                width: `${
-                                    ((currentStep - 1) / (totalSteps - 1)) * 100
-                                }%`,
-                            }}
-                        ></div>
-                    </div>
-                    <div className={styles.stepIndicators}>
-                        {steps.map((step, index) => (
-                            <button
-                                disabled={sending}
-                                key={index}
-                                className={`${styles.stepDot} ${
-                                    currentStep === index + 1
-                                        ? styles.active
-                                        : completedSteps.includes(index + 1)
-                                          ? styles.completed
-                                          : ""
-                                }`}
-                                onClick={() => goToStep(index + 1)}
-                                aria-label={`Go to step ${index + 1}: ${
-                                    step.title
-                                }`}
-                            >
-                                <span className={styles.stepNumber}>
-                                    {index + 1}
-                                </span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                <FormProgressBar
+                    totalSteps={totalSteps}
+                    goToStep={goToStep}
+                    currentStep={currentStep}
+                    steps={steps}
+                    sending={sending}
+                />
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     {/* Step 1: Business Information */}
@@ -742,4 +642,4 @@ const WebsiteForm = () => {
     );
 };
 
-export default WebsiteForm;
+export default GetStarted;
