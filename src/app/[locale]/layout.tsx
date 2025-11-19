@@ -9,6 +9,12 @@ import Head from "next/head";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BASE_URL } from "@/lib/constants";
+import { Tajawal } from "next/font/google";
+const tajawal = Tajawal({
+  subsets: ["arabic"],
+  weight: ["200", "300", "400", "500", "700", "800", "900"],
+  variable: "--font-tajawal",
+});
 type Props = {
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
@@ -83,7 +89,7 @@ export default async function RootLayout({ children, params }: Props) {
         notFound();
     }
     return (
-        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+        <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={tajawal.variable}>
             <Head>
                 <meta name="apple-mobile-web-app-title" content="Nasaq" />
             </Head>
