@@ -37,18 +37,10 @@
 .logo:hover {
     transform: scale(1.05);
 }
-
-.logoText {
-    font-size: 1.8rem;
-    font-weight: 700;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: var(--text-primary);
-    margin-right: 0.5rem;
+.logo img{
+    height: 50px;
+    width: auto;
 }
-
-
 
 /* Desktop Navigation */
 .navItems {

@@ -79,16 +79,14 @@ const Navigation = () => {
                     onClick={() => scrollToSection("home")}
                     href={"/"}
                 >
-                    {language === "en" ? (
-                        <span className={styles.logoText}>Nasaq</span>
-                    ) : (
+                     
                         <Image
                             alt="Nasaq for digital solutions"
                             width={50}
                             height={50}
-                            src={"/logo-white-transparent.png"}
+                            src={"/logo-white.png"}
                         />
-                    )}
+                    
                 </Link>
 
                 {/* Desktop Navigation */}

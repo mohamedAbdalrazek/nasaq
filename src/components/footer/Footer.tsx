@@ -1,7 +1,7 @@
 // components/Footer.tsx
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import {  useTranslations } from "next-intl";
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -9,7 +9,6 @@ import { usePathname } from "@/i18n/navigation";
 import { EMAIL, PHONE_NUMBER } from "@/lib/constants";
 
 const Footer = () => {
-    const locale = useLocale();
     const t = useTranslations("Footer");
     const currentYear = new Date().getFullYear();
     const [isScrolled, setIsScrolled] = useState(false);
@@ -49,16 +48,12 @@ const Footer = () => {
                             className={styles.logo}
                             onClick={() => scrollToSection("home")}
                         >
-                            {locale === "en" ? (
-                                <span className={styles.logoText}>Nasaq</span>
-                            ) : (
-                                <Image
-                                    alt="Nasaq for digital solutions"
-                                    width={50}
-                                    height={50}
-                                    src="/logo-white-transparent.png"
-                                />
-                            )}
+                            <Image
+                                alt="Nasaq for digital solutions"
+                                width={50}
+                                height={50}
+                                src="/logo-white.png"
+                            />
                         </div>
                         <p className={styles.brandDescription}>
                             {t("brandDescription")}
@@ -162,7 +157,7 @@ const Footer = () => {
                                 >
                                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z" />
                                 </svg>
-                                <span>{EMAIL}</span>
+                                <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
                             </div>
                             <div className={styles.contactItem}>
                                 <svg
@@ -174,7 +169,9 @@ const Footer = () => {
                                 >
                                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 12H4v-2h9v2zm5-4H4v-2h14v2z" />
                                 </svg>
-                                <a href={`tel:+2${PHONE_NUMBER}`}>+2{PHONE_NUMBER}</a>
+                                <a href={`tel:+2${PHONE_NUMBER}`}>
+                                    +2{PHONE_NUMBER}
+                                </a>
                             </div>
                             <div className={styles.contactItem}>
                                 <svg
