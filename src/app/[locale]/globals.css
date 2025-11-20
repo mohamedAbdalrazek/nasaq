@@ -10,9 +10,9 @@
     --text-primary: #f0f0f0;
     --text-secondary: #a0a0a0;
     --accent-primary: rgb(33, 170, 255);
-    --accent-secondary: rgb(159, 223, 252);
+    --accent-secondary: #9fdffc;
     --green-primary :#7DDA66;
-    --accent-gradient: linear-gradient(135deg, #ab9ffc, #50A1D2);
+    --accent-gradient: linear-gradient(135deg, #7DDA66, #50A1D2);
     --success: #4caf50;
     --warning: #ff9800;
     --error: #f44336;
