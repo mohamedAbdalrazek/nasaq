@@ -76,7 +76,7 @@
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--accent-gradient);
+    background: var(--accent-primary);
     transition: var(--transition);
     transform: translateX(-50%);
 }

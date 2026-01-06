@@ -105,7 +105,7 @@ p {
 }
 
 a {
-    color: var(--green-primary);
+    color: var(--accent-primary);
     text-decoration: none;
     transition: var(--transition);
 }
