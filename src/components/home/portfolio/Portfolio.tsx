@@ -20,26 +20,26 @@ export default function PortfolioSection() {
                 </div>
 
                 <div className={styles.portfolioGrid}>
-                    {/* Hawya Project */}
+                    {/* marakeb Project */}
                     <div className={styles.portfolioItem}>
                         <div className={styles.portfolioImage}>
                             <Image
                                 fill
-                                src={"/projects/hawya.png"}
-                                alt="Hawya Car Rental Website"
+                                src={"/projects/marakeb.png"}
+                                alt="marakeb Car Rental Website"
                             />
                             <div className={styles.overlay}>
                                 <Link
                                     target="blank"
-                                    href={"https://hawya-rental.com/"}
+                                    href={"http://marakeb.co/"}
                                     className="btn btn-primary"
                                 >
                                     {t("viewProject")}
                                 </Link>
                             </div>
                         </div>
-                        <h3>{t("hawyaTitle")}</h3>
-                        <p>{t("hawyaDesc")}</p>
+                        <h3>{t("marakebTitle")}</h3>
+                        <p>{t("marakebDesc")}</p>
                     </div>
 
                     {/* Razan Project */}
