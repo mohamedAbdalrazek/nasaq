@@ -1,4 +1,4 @@
-import { firestore } from "@/lib/firebase";
+import { firestore } from "@/shared/lib/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { NextResponse } from "next/server";
 import { z } from "zod";
