@@ -1,8 +1,10 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { Nav, Footer } from "@/shared/components/layout";
+import { GTM_ID } from "@/shared/lib/constants";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import { Tajawal } from "next/font/google";
@@ -29,6 +31,7 @@ export default async function RootLayout({ children, params }: Props) {
             dir={locale === "ar" ? "rtl" : "ltr"}
             className={tajawal.variable}
         >
+            <GoogleTagManager gtmId={GTM_ID} />
             <Head>
                 <meta name="apple-mobile-web-app-title" content="Nasaq" />
             </Head>
