@@ -1,5 +1,5 @@
-import '@testing-library/jest-dom'
-import { TextEncoder, TextDecoder } from 'util';
+import '@testing-library/jest-dom';
+import { TextDecoder, TextEncoder } from 'util';
 
 if (!global.TextEncoder) {
     // @ts-expect-error Node util TextEncoder differs from DOM global type

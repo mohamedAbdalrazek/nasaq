@@ -1,0 +1,76 @@
+.progressContainer {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.progressBar {
+    height: 6px;
+    background: var(--background-tertiary);
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.stepIndicators {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.stepDot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--text-secondary);
+    background: var(--background-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+.stepDot.active {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.stepDot.completed {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary);
+    color: white;
+}
+
+.stepNumber {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .stepDot {
+        width: 30px;
+        height: 30px;
+    }
+
+    .stepNumber {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .progressContainer {
+        margin-bottom: 2rem;
+    }
+}
