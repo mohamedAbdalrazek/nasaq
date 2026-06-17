@@ -1,5 +1,4 @@
 User-Agent: *
-Allow: /
-Disallow: /confirmation
+Disallow: /
 
-Sitemap: https://nasaq.app/sitemap.xml
+Sitemap: https://staging.nasaq.app/sitemap.xml
