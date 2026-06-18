@@ -28,6 +28,12 @@ const booking = {
     colorPreferences: "dwad",
 };
 
+jest.mock("@/shared/hooks/usePrint", () => ({
+    usePrint: () => ({
+        printRef: { current: null },
+        print: jest.fn(),
+    }),
+}));
 jest.mock("@/shared/components/Loading", () => ({
     Loading: ({ size }: { size: string }) => <div>Loading... {size}</div>,
 }));

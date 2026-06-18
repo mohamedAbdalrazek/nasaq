@@ -1,15 +1,16 @@
-import { render, screen } from "@testing-library/react";
-import GetStartedPage from "./GetStartedPage";
-import userEvent from "@testing-library/user-event";
 import { deepEqual } from "@/shared/lib/functions";
-import { FormData } from "@/shared/lib/types";
 import {
     fillStep1,
     fillStep2,
     fillStep4,
     goToStep,
 } from "@/shared/lib/testing-functions";
+import { FormData } from "@/shared/lib/types";
+import '@testing-library/jest-dom';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import toast from "react-hot-toast";
+import GetStartedPage from "./GetStartedPage";
 
 const mockData: FormData = {
     desiredFeatures: ["features.blog"],
@@ -54,7 +55,7 @@ jest.mock("react-hot-toast", () => {
     };
 });
 
-const mockFetch = (data = { success: true, id: "123" }) => {
+const mockFetch = (data = { ok: true, id: "123" }) => {
     //@ts-expect-error mock
     global.fetch.mockResolvedValue({
         ok: true,
@@ -127,8 +128,8 @@ describe("GetStartedPage", () => {
         await user.click(nextButton);
         expect(screen.getByText(/invalidEmail/)).toBeInTheDocument();
         expect(screen.getByText(/invalidPhone/)).toBeInTheDocument();
-        user.clear(fifthInputEmail);
-        user.clear(fifthInputNumber);
+        await user.clear(fifthInputEmail);
+        await user.clear(fifthInputNumber);
         await user.type(fifthInputEmail, "john@john");
         await user.click(nextButton);
         expect(screen.getByText(/invalidEmail/)).toBeInTheDocument();
@@ -175,30 +176,35 @@ describe("GetStartedPage", () => {
         const nextButton = renderComponent();
 
         const firstStepButton = screen.getByRole("button", { name: /step 1/ });
-        expect(firstStepButton).toHaveAttribute("class", "stepDot active");
+        expect(firstStepButton.className).toMatch(/stepDot/);
+        expect(firstStepButton.className).toMatch(/active/);
 
         await fillStep1(user, mockData);
         await user.click(nextButton);
 
         const secondStepButton = screen.getByRole("button", { name: /step 2/ });
-        expect(secondStepButton).toHaveAttribute("class", "stepDot active");
+        expect(secondStepButton.className).toMatch(/stepDot/);
+        expect(secondStepButton.className).toMatch(/active/);
 
         await fillStep2(user, mockData);
         await user.click(nextButton);
 
         const thirdStepButton = screen.getByRole("button", { name: /step 3/ });
-        expect(thirdStepButton).toHaveAttribute("class", "stepDot active");
+        expect(thirdStepButton.className).toMatch(/stepDot/);
+        expect(thirdStepButton.className).toMatch(/active/);
 
         await user.click(nextButton);
 
         const fourthStepButton = screen.getByRole("button", { name: /step 4/ });
-        expect(fourthStepButton).toHaveAttribute("class", "stepDot active");
+        expect(fourthStepButton.className).toMatch(/stepDot/);
+        expect(fourthStepButton.className).toMatch(/active/);
 
         await fillStep4(user, mockData);
         await user.click(nextButton);
 
         const fifthStepButton = screen.getByRole("button", { name: /step 5/ });
-        expect(fifthStepButton).toHaveAttribute("class", "stepDot active");
+        expect(fifthStepButton.className).toMatch(/stepDot/);
+        expect(fifthStepButton.className).toMatch(/active/);
     });
     it("Checks the previous button", async () => {
         renderComponent();
@@ -208,6 +214,7 @@ describe("GetStartedPage", () => {
         const prevButton = screen.getByRole("button", { name: /previous/ });
         await user.click(prevButton);
         const firstStepButton = screen.getByRole("button", { name: /step 1/ });
-        expect(firstStepButton).toHaveAttribute("class", "stepDot active");
+        expect(firstStepButton.className).toMatch(/stepDot/);
+        expect(firstStepButton.className).toMatch(/active/);
     });
 });

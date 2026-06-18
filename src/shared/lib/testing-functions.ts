@@ -60,29 +60,33 @@ export const fillStep5 = async (user: UserEvent, data: FormData) => {
     await user.selectOptions(screen.getByRole("combobox"), data.contactMethod);
 };
 
+const clickNextOrSubmit = async (user: UserEvent) => {
+    const button = screen.getByRole("button", { name: /next|submit/i });
+    await user.click(button);
+};
+
 export const goToStep = async (
     user: UserEvent,
     mockData: FormData,
     stepNumber: number,
 ) => {
-    const nextButton = screen.getByRole("button", { name: /next/ });
     if (stepNumber > 1) {
         await fillStep1(user, mockData);
-        await user.click(nextButton);
+        await clickNextOrSubmit(user);
     }
     if (stepNumber > 2) {
         await fillStep2(user, mockData);
-        await user.click(nextButton);
+        await clickNextOrSubmit(user);
     }
     if (stepNumber > 3) {
-        await user.click(nextButton);
+        await clickNextOrSubmit(user);
     }
     if (stepNumber > 4) {
         await fillStep4(user, mockData);
-        await user.click(nextButton);
+        await clickNextOrSubmit(user);
     }
     if (stepNumber > 5) {
         await fillStep5(user, mockData);
-        await user.click(nextButton);
+        await clickNextOrSubmit(user);
     }
 };

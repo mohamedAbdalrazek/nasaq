@@ -1,8 +1,12 @@
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
 
+jest.mock('next-intl/server', () => ({
+    getTranslations: jest.fn(async () => (key: string) => key),
+    setRequestLocale: jest.fn(),
+}));
+
 if (!global.TextEncoder) {
-    // @ts-expect-error Node util TextEncoder differs from DOM global type
     global.TextEncoder = TextEncoder;
 }
 
