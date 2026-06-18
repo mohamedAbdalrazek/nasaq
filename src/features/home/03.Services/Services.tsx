@@ -49,10 +49,10 @@ export function Services() {
     ];
 
     return (
-        <section className={styles.services} id="services">
+        <section aria-labelledby="services-heading" className={styles.services} id="services">
             <div className="container">
                 <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>
+                    <h2 id="services-heading" className={styles.sectionTitle}>
                         {t("sectionTitle")}
                     </h2>
                     <p className={styles.sectionSubtitle}>

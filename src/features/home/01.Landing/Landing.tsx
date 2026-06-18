@@ -9,13 +9,14 @@ export function Landing() {
     const t = useTranslations("Landing");
 
     return (
-        <section className={styles.hero} id="home">
+        <section aria-labelledby="home-heading" className={styles.hero} id="home">
             <div className={`container ${styles.heroContainer}`}>
                 <div className={styles.heroContent}>
                     <div className={styles.badge}>
                         <span>{t("badge")}</span>
                     </div>
                     <h1
+                        id="home-heading"
                         className={styles.heroTitle}
                         dangerouslySetInnerHTML={{
                             __html: t

@@ -94,10 +94,11 @@ export function Process() {
     ];
 
     return (
-        <section className={styles.process} id="process">
+        <section aria-labelledby="process-heading" className={styles.process} id="process">
             <div className="container">
                 <div className={styles.sectionHeader}>
                     <h2
+                        id="process-heading"
                         className={styles.sectionTitle}
                         dangerouslySetInnerHTML={{ __html: t("title") }}
                     />

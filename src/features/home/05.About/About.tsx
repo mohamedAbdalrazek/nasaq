@@ -10,12 +10,12 @@ export function About() {
     const t = useTranslations("About");
 
     return (
-        <section className={styles.about} id="about">
+        <section aria-labelledby="about-heading" className={styles.about} id="about">
             <div className="container">
                 <div className={styles.content}>
                     <div className={styles.textContent}>
                         <div className={styles.sectionHeader}>
-                            <h2 className={styles.sectionTitle}>
+                            <h2 id="about-heading" className={styles.sectionTitle}>
                                 {t("title")}{" "}
                             </h2>
                             <p className={styles.sectionSubtitle}>

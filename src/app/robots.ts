@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: "*",
             allow: "/",
-            disallow: "/confirmation",
+            disallow: ["/en/confirmation/", "/ar/confirmation/"],
         },
         sitemap: `${BASE_URL}/sitemap.xml`,
     };

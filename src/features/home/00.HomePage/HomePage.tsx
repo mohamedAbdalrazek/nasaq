@@ -98,6 +98,7 @@ export default function HomePage() {
         <>
             <canvas
                 ref={canvasRef}
+                aria-hidden
                 className={styles.backgroundCanvas}
             ></canvas>
             <Landing />

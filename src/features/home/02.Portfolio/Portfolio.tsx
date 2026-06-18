@@ -9,10 +9,11 @@ export function Portfolio() {
     const t = useTranslations("Portfolio");
 
     return (
-        <section className={styles.portfolio} id="portfolio">
+        <section aria-labelledby="portfolio-heading" className={styles.portfolio} id="portfolio">
             <div className="container">
                 <div className={styles.sectionHeader}>
                     <h2
+                        id="portfolio-heading"
                         className={styles.sectionTitle}
                         dangerouslySetInnerHTML={{ __html: t("title") }}
                     />

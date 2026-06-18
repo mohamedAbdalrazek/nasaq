@@ -67,6 +67,7 @@ export function Nav() {
 
     return (
         <nav
+            aria-label={t("ariaLabel")}
             className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}
         >
             <div className={`container ${styles.navContainer}`}>

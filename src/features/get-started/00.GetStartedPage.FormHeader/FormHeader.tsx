@@ -6,7 +6,7 @@ export function FormHeader() {
 
     return (
         <div className={styles.formHeader}>
-            <h2 className={styles.formTitle}>{t("title")}</h2>
+            <h1 className={styles.formTitle}>{t("title")}</h1>
             <p className={styles.formSubtitle}>{t("subtitle")}</p>
         </div>
     );
