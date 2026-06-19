@@ -105,7 +105,7 @@
   background: var(--background-tertiary);
 }
 
-.checkboxLabel input[type="checkbox"] {
+.checkboxLabel input[type='checkbox'] {
   width: auto;
   margin: 0;
 }
