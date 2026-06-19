@@ -4,15 +4,15 @@ import { EMAIL, PHONE_NUMBER } from "@/shared/lib/constants";
 import { useRef } from "react";
 
 export const usePrint = () => {
-    const printRef = useRef<HTMLDivElement>(null);
+  const printRef = useRef<HTMLDivElement>(null);
 
-    const print = () => {
-        if (!printRef.current) return;
+  const print = () => {
+    if (!printRef.current) return;
 
-        const printWindow = window.open("", "_blank");
-        if (!printWindow) return;
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
 
-        printWindow.document.write(`
+    printWindow.document.write(`
       <html>
         <head>
           <title>Website Project Request</title>
@@ -94,13 +94,13 @@ export const usePrint = () => {
       </html>
     `);
 
-        printWindow.document.close();
-        setTimeout(() => {
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
-        }, 250);
-    };
+    printWindow.document.close();
+    setTimeout(() => {
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }, 250);
+  };
 
-    return { printRef, print };
+  return { printRef, print };
 };

@@ -7,175 +7,158 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 
 export function Nav() {
-    const [activeSection, setActiveSection] = useState("home");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const pathname = usePathname();
-    const language = useLocale();
-    const t = useTranslations("Nav");
-    const navItems = useMemo(
-        () => [
-            { id: "home" },
-            { id: "portfolio" },
-            { id: "services" },
-            { id: "process" },
-            { id: "about" },
-        ],
-        [],
-    );
+  const [activeSection, setActiveSection] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const language = useLocale();
+  const t = useTranslations("Nav");
+  const navItems = useMemo(
+    () => [
+      { id: "home" },
+      { id: "portfolio" },
+      { id: "services" },
+      { id: "process" },
+      { id: "about" },
+    ],
+    [],
+  );
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
 
-            const sections = navItems.map((item) =>
-                document.getElementById(item.id),
-            );
-            const scrollPosition = window.scrollY + 100;
+      const sections = navItems.map((item) => document.getElementById(item.id));
+      const scrollPosition = window.scrollY + 100;
 
-            sections.forEach((section) => {
-                if (section) {
-                    const offsetTop = section.offsetTop;
-                    const offsetHeight = section.offsetHeight;
-
-                    if (
-                        scrollPosition >= offsetTop &&
-                        scrollPosition < offsetTop + offsetHeight
-                    ) {
-                        setActiveSection(section.id);
-                    }
-                }
-            });
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [navItems]);
-
-    const scrollToSection = (sectionId: string) => {
-        const section = document.getElementById(sectionId);
+      sections.forEach((section) => {
         if (section) {
-            section.scrollIntoView({ behavior: "smooth" });
-            setActiveSection(sectionId);
-            setIsMenuOpen(false);
+          const offsetTop = section.offsetTop;
+          const offsetHeight = section.offsetHeight;
+
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section.id);
+          }
         }
+      });
     };
 
-    const toggleMenu = () => {
-        setIsMenuOpen((prev) => !prev);
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navItems]);
 
-    return (
-        <nav
-            className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionId);
+      setIsMenuOpen(false);
+    }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  return (
+    <nav
+      aria-label={t("ariaLabel")}
+      className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}
+    >
+      <div className={`container ${styles.navContainer}`}>
+        <Link
+          className={styles.logo}
+          onClick={() => scrollToSection("home")}
+          href={"/"}
         >
-            <div className={`container ${styles.navContainer}`}>
-                <Link
-                    className={styles.logo}
-                    onClick={() => scrollToSection("home")}
-                    href={"/"}
-                >
-                    <Image
-                        alt="Nasaq for digital solutions"
-                        width={50}
-                        height={50}
-                        src={"/logo-white.png"}
-                    />
-                </Link>
+          <Image
+            alt="Nasaq for digital solutions"
+            width={50}
+            height={50}
+            src={"/logo-white.png"}
+          />
+        </Link>
 
-                {pathname === "/" && (
-                    <div className={styles.navItems}>
-                        {navItems.map((item) => (
-                            <button
-                                key={item.id}
-                                className={`${styles.navLink} ${
-                                    activeSection === item.id
-                                        ? styles.active
-                                        : ""
-                                }`}
-                                onClick={() => scrollToSection(item.id)}
-                            >
-                                <span className={styles.linkText}>
-                                    {t(item.id)}
-                                </span>
-                                <span className={styles.linkHover}></span>
-                            </button>
-                        ))}
-                    </div>
-                )}
-
-                <div className={styles.navControls}>
-                    <button className={styles.languageSwitch}>
-                        <Link
-                            className={
-                                language === "en" ? styles.activeLang : ""
-                            }
-                            href={pathname}
-                            locale="en"
-                        >
-                            English
-                        </Link>
-                        <span className={styles.langDivider}>/</span>
-                        <Link
-                            className={
-                                language === "ar" ? styles.activeLang : ""
-                            }
-                            href={pathname}
-                            locale="ar"
-                        >
-                            عربي
-                        </Link>
-                    </button>
-
-                    <button
-                        className={`${styles.menuToggle} ${
-                            isMenuOpen ? styles.open : ""
-                        }`}
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-
-                <div
-                    className={`${styles.mobileMenu} ${
-                        isMenuOpen ? styles.open : ""
-                    }`}
-                >
-                    <div className={styles.mobileNavItems}>
-                        {navItems.map((item) => (
-                            <button
-                                key={item.id}
-                                className={`${styles.mobileNavLink} ${
-                                    activeSection === item.id
-                                        ? styles.active
-                                        : ""
-                                }`}
-                                onClick={() => scrollToSection(item.id)}
-                            >
-                                {t(item.id)}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <div
-                className={`${styles.activeIndicator} ${
-                    language === "ar" ? styles.arActiveIndicator : ""
+        {pathname === "/" && (
+          <div className={styles.navItems}>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                className={`${styles.navLink} ${
+                  activeSection === item.id ? styles.active : ""
                 }`}
-                style={{
-                    width: `${pathname === "/" ? 100 / navItems.length : 100}%`,
-                    transform: `translateX(${language === "ar" ? "-" : ""}${
-                        navItems.findIndex(
-                            (item) => item.id === activeSection,
-                        ) * 100
-                    }%)`,
-                }}
-            ></div>
-        </nav>
-    );
+                onClick={() => scrollToSection(item.id)}
+              >
+                <span className={styles.linkText}>{t(item.id)}</span>
+                <span className={styles.linkHover}></span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.navControls}>
+          <button className={styles.languageSwitch}>
+            <Link
+              className={language === "en" ? styles.activeLang : ""}
+              href={pathname}
+              locale="en"
+            >
+              English
+            </Link>
+            <span className={styles.langDivider}>/</span>
+            <Link
+              className={language === "ar" ? styles.activeLang : ""}
+              href={pathname}
+              locale="ar"
+            >
+              عربي
+            </Link>
+          </button>
+
+          <button
+            className={`${styles.menuToggle} ${isMenuOpen ? styles.open : ""}`}
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div
+          className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ""}`}
+        >
+          <div className={styles.mobileNavItems}>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                className={`${styles.mobileNavLink} ${
+                  activeSection === item.id ? styles.active : ""
+                }`}
+                onClick={() => scrollToSection(item.id)}
+              >
+                {t(item.id)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`${styles.activeIndicator} ${
+          language === "ar" ? styles.arActiveIndicator : ""
+        }`}
+        style={{
+          width: `${pathname === "/" ? 100 / navItems.length : 100}%`,
+          transform: `translateX(${language === "ar" ? "-" : ""}${
+            navItems.findIndex((item) => item.id === activeSection) * 100
+          }%)`,
+        }}
+      ></div>
+    </nav>
+  );
 }

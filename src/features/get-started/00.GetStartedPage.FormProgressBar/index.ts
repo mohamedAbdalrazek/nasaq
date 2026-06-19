@@ -1,1 +1,1 @@
-export { FormProgressBar } from './FormProgressBar';
+export { FormProgressBar } from "./FormProgressBar";

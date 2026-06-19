@@ -52,9 +52,9 @@ This applies everywhere — `features/`, `shared/`, `app/`. No exceptions.
 
 When a dotted folder chain lists ancestor segments plus the component name, **shorten only the last segment** in the **folder name** if any earlier segment in that chain is a **prefix** of the full React `ComponentName`.
 
-* **Folder** — drop the redundant prefix from the leaf segment only.
-* **React file and export** — always keep the full name (`FormProgressBar.tsx`, `export { FormProgressBar }`).
-* **Check order** — walk ancestors from immediate parent back to the top-level section `{NN}`; use the **longest** matching prefix.
+- **Folder** — drop the redundant prefix from the leaf segment only.
+- **React file and export** — always keep the full name (`FormProgressBar.tsx`, `export { FormProgressBar }`).
+- **Check order** — walk ancestors from immediate parent back to the top-level section `{NN}`; use the **longest** matching prefix.
 
 ```
 Full name: FormProgressBar
@@ -75,11 +75,11 @@ Do **not** shorten component names in TSX, `index.ts` exports, or i18n keys — 
 
 Allowed files per route segment (routing surface only):
 
-* `page.tsx` — re-exports `default` and `generateMetadata` from the feature (and `generateStaticParams` when needed)
-* `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` — segment UI boundaries when required
-* `route.ts` — API routes (`src/app/api/booking/post/route.ts`, `src/app/api/booking/get/route.ts`)
-* `types.ts` — **route params only**: `*PageParams`, `*PageFC`, `*GenerateMetadata` wired to Next.js types
-* `globals.css`, `sitemap.ts`, `robots.txt`, `manifest.json` — app-level assets that belong at the locale root
+- `page.tsx` — re-exports `default` and `generateMetadata` from the feature (and `generateStaticParams` when needed)
+- `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` — segment UI boundaries when required
+- `route.ts` — API routes (`src/app/api/booking/post/route.ts`, `src/app/api/booking/get/route.ts`)
+- `types.ts` — **route params only**: `*PageParams`, `*PageFC`, `*GenerateMetadata` wired to Next.js types
+- `globals.css`, `sitemap.ts`, `robots.txt`, `manifest.json` — app-level assets that belong at the locale root
 
 Not allowed under `app/` after migration: colocated `GetStarted.tsx`, `FormHeader.tsx`, `Confirmation.tsx`, `*.module.css`, fetchers, or Firebase calls — those belong in `features/`.
 
@@ -107,7 +107,7 @@ export default function Home() {
 
 ```tsx
 // src/app/[locale]/page.tsx (target)
-import HomePage, { generateMetadata } from '@/features/home';
+import HomePage, { generateMetadata } from "@/features/home";
 
 export { generateMetadata };
 export default HomePage;
@@ -115,7 +115,7 @@ export default HomePage;
 
 ```tsx
 // src/app/[locale]/get-started/page.tsx (target)
-import GetStartedPage, { generateMetadata } from '@/features/get-started';
+import GetStartedPage, { generateMetadata } from "@/features/get-started";
 
 export { generateMetadata };
 export default GetStartedPage;
@@ -123,7 +123,7 @@ export default GetStartedPage;
 
 ```tsx
 // src/app/[locale]/confirmation/[id]/page.tsx (target)
-import ConfirmationPage from '@/features/confirmation';
+import ConfirmationPage from "@/features/confirmation";
 
 export default ConfirmationPage;
 ```
@@ -132,7 +132,7 @@ export default ConfirmationPage;
 
 ```tsx
 // src/app/[locale]/layout.tsx (target)
-import { Nav, Footer } from '@/shared/components/layout';
+import { Nav, Footer } from "@/shared/components/layout";
 // generateMetadata for default home meta can move to features/home or stay here temporarily
 ```
 
@@ -142,10 +142,10 @@ import { Nav, Footer } from '@/shared/components/layout';
 
 Each App Router `page.tsx` gets its **own** folder under `features/`. Do not put two route pages in the same feature.
 
-| Route | Feature folder | Page orchestrator |
-|-------|----------------|-------------------|
-| `/` | `features/home/` | `00.HomePage/` |
-| `/get-started` | `features/get-started/` | `00.GetStartedPage/` |
+| Route                | Feature folder           | Page orchestrator      |
+| -------------------- | ------------------------ | ---------------------- |
+| `/`                  | `features/home/`         | `00.HomePage/`         |
+| `/get-started`       | `features/get-started/`  | `00.GetStartedPage/`   |
 | `/confirmation/[id]` | `features/confirmation/` | `00.ConfirmationPage/` |
 
 ```
@@ -169,27 +169,27 @@ A feature has **exactly one** page orchestrator folder: `00.{PageName}/` (the de
 
 ### Folder naming
 
-| Kind | Folder pattern | Example |
-|------|----------------|---------|
-| Page | `00.{PageName}/` | `00.HomePage/` |
-| Top-level section (rendered by page) | `{NN}.{ComponentName}/` | `01.Landing/`, `02.Portfolio/` |
-| Private child | `{NN}.{Parent}.{Child}/` | `00.GetStartedPage.FormHeader/` |
-| Grandchild (private) | `{NN}.{Parent}.{Child}.{Grandchild}/` | `02.Portfolio._PortfolioItem.Overlay/` |
-| **Feature-wide shared** (2+ top-level sections) | `_{ComponentName}/` | `_SectionHeader/` — **no** `{NN}` |
-| Child of feature-wide shared | `_{Shared}.{Child}/` | `_SectionHeader.Badge/` |
-| **Main-scoped shared** (2+ subcomponents of same section) | `{NN}.{Main}._{Shared}/` | `02.Portfolio._PortfolioItem/` |
-| Child of main-scoped shared | `{NN}.{Main}._{Shared}.{Child}/` | `02.Portfolio._PortfolioItem.Overlay/` |
+| Kind                                                      | Folder pattern                        | Example                                |
+| --------------------------------------------------------- | ------------------------------------- | -------------------------------------- |
+| Page                                                      | `00.{PageName}/`                      | `00.HomePage/`                         |
+| Top-level section (rendered by page)                      | `{NN}.{ComponentName}/`               | `01.Landing/`, `02.Portfolio/`         |
+| Private child                                             | `{NN}.{Parent}.{Child}/`              | `00.GetStartedPage.FormHeader/`        |
+| Grandchild (private)                                      | `{NN}.{Parent}.{Child}.{Grandchild}/` | `02.Portfolio._PortfolioItem.Overlay/` |
+| **Feature-wide shared** (2+ top-level sections)           | `_{ComponentName}/`                   | `_SectionHeader/` — **no** `{NN}`      |
+| Child of feature-wide shared                              | `_{Shared}.{Child}/`                  | `_SectionHeader.Badge/`                |
+| **Main-scoped shared** (2+ subcomponents of same section) | `{NN}.{Main}._{Shared}/`              | `02.Portfolio._PortfolioItem/`         |
+| Child of main-scoped shared                               | `{NN}.{Main}._{Shared}.{Child}/`      | `02.Portfolio._PortfolioItem.Overlay/` |
 
 `{NN}` is always the **top-level section's** index on the page. Subcomponents **do not** get their own sequence number.
 
 **Which shared pattern to use**
 
-| Shared by whom | Folder |
-|----------------|--------|
-| `03.Services` + `04.Process` (two top-level sections) | `_SectionHeader/` |
-| `02.Portfolio.Grid` + `02.Portfolio.Featured` (two subs of Portfolio) | `02.Portfolio._PortfolioItem/` |
-| Private child of `_PortfolioItem` | `02.Portfolio._PortfolioItem.Overlay/` |
-| Single page section owns the component | `00.GetStartedPage.FormHeader/` — **not** `_FormHeader/` |
+| Shared by whom                                                        | Folder                                                   |
+| --------------------------------------------------------------------- | -------------------------------------------------------- |
+| `03.Services` + `04.Process` (two top-level sections)                 | `_SectionHeader/`                                        |
+| `02.Portfolio.Grid` + `02.Portfolio.Featured` (two subs of Portfolio) | `02.Portfolio._PortfolioItem/`                           |
+| Private child of `_PortfolioItem`                                     | `02.Portfolio._PortfolioItem.Overlay/`                   |
+| Single page section owns the component                                | `00.GetStartedPage.FormHeader/` — **not** `_FormHeader/` |
 
 All of these stay as **sibling folders on the feature root** — never nest `00.GetStartedPage.FormHeader/` inside `00.GetStartedPage/`.
 
@@ -205,18 +205,18 @@ Explorer sort: `00` → `01` → … then chains group by prefix (`02.Portfolio`
 
 ```ts
 // features/home/01.Landing/index.ts
-export { Landing } from './Landing';
+export { Landing } from "./Landing";
 ```
 
 ```ts
 // features/get-started/00.GetStartedPage/index.ts
-export { default } from './GetStartedPage';
-export { generateMetadata } from './lib/helpers';
+export { default } from "./GetStartedPage";
+export { generateMetadata } from "./lib/helpers";
 ```
 
 ```ts
 // features/get-started/00.GetStartedPage.FormHeader/index.ts
-export { FormHeader } from './FormHeader';
+export { FormHeader } from "./FormHeader";
 ```
 
 Do **not** re-export other folders from a component `index.ts`.
@@ -225,26 +225,26 @@ Do **not** re-export other folders from a component `index.ts`.
 
 ```ts
 // features/home/index.ts
-export { default, generateMetadata } from './00.HomePage';
-export { Landing } from './01.Landing';
-export { Portfolio } from './02.Portfolio';
-export { PortfolioItem } from './02.Portfolio._PortfolioItem';
-export { Services } from './03.Services';
-export { Process } from './04.Process';
-export { About } from './05.About';
+export { default, generateMetadata } from "./00.HomePage";
+export { Landing } from "./01.Landing";
+export { Portfolio } from "./02.Portfolio";
+export { PortfolioItem } from "./02.Portfolio._PortfolioItem";
+export { Services } from "./03.Services";
+export { Process } from "./04.Process";
+export { About } from "./05.About";
 ```
 
 ```ts
 // features/get-started/index.ts
-export { default, generateMetadata } from './00.GetStartedPage';
-export { FormHeader } from './00.GetStartedPage.FormHeader';
-export { FormProgressBar } from './00.GetStartedPage.FormProgressBar';
+export { default, generateMetadata } from "./00.GetStartedPage";
+export { FormHeader } from "./00.GetStartedPage.FormHeader";
+export { FormProgressBar } from "./00.GetStartedPage.FormProgressBar";
 ```
 
 ```ts
 // features/confirmation/index.ts
-export { default } from './00.ConfirmationPage';
-export { Confirmation } from './01.Confirmation';
+export { default } from "./00.ConfirmationPage";
+export { Confirmation } from "./01.Confirmation";
 ```
 
 ### Imports — always `features/{feature}/index.ts`
@@ -252,33 +252,33 @@ export { Confirmation } from './01.Confirmation';
 Every component folder sits **one level** under `features/{feature}/`, so the feature barrel is always one step up:
 
 ```ts
-import { FormHeader, FormProgressBar } from '..';
-import { Portfolio, PortfolioItem } from '..';
+import { FormHeader, FormProgressBar } from "..";
+import { Portfolio, PortfolioItem } from "..";
 ```
 
 **`app/` → feature:**
 
 ```ts
-import HomePage, { generateMetadata } from '@/features/home';
+import HomePage, { generateMetadata } from "@/features/home";
 ```
 
 **Page and sections → siblings via feature index:**
 
 ```ts
 // 00.HomePage/HomePage.tsx
-import { Landing, Portfolio, Services, Process, About } from '..';
+import { Landing, Portfolio, Services, Process, About } from "..";
 
 // 02.Portfolio/Portfolio.tsx
-import { PortfolioItem } from '..';
+import { PortfolioItem } from "..";
 
 // 00.GetStartedPage/GetStartedPage.tsx
-import { FormHeader, FormProgressBar } from '..';
+import { FormHeader, FormProgressBar } from "..";
 ```
 
 **Outside the feature** — use the path alias (same barrel):
 
 ```ts
-import { Portfolio } from '@/features/home';
+import { Portfolio } from "@/features/home";
 ```
 
 Do **not** import from another component folder path (`../02.Portfolio`, `../00.GetStartedPage.FormHeader`) — only `from '..'` inside the feature, or `@/features/{feature}` from outside.
@@ -462,16 +462,16 @@ Optional **`context/`** when client state is non-trivial (not needed for current
 
 ### Option B — `lib/` contents
 
-| File | Purpose |
-|------|---------|
-| `lib/helpers.ts` | Pure helpers, metadata builders (no I/O) |
-| `lib/fetch.ts` | Server/client data loading (I/O) |
-| `lib/data.ts` | Static lists, enum labels |
-| `lib/schemas.ts` | Zod schemas, JSON-LD builders |
-| `lib/submit.ts` | Form POST to `/api/booking/post` |
-| `types.ts` | Props, view models, page param aliases for `00.*` folders |
-| `context/` | Optional split instead of `lib/context.ts` when a provider tree is large |
-| `svg/` | Icons and decorations owned by this component only |
+| File             | Purpose                                                                  |
+| ---------------- | ------------------------------------------------------------------------ |
+| `lib/helpers.ts` | Pure helpers, metadata builders (no I/O)                                 |
+| `lib/fetch.ts`   | Server/client data loading (I/O)                                         |
+| `lib/data.ts`    | Static lists, enum labels                                                |
+| `lib/schemas.ts` | Zod schemas, JSON-LD builders                                            |
+| `lib/submit.ts`  | Form POST to `/api/booking/post`                                         |
+| `types.ts`       | Props, view models, page param aliases for `00.*` folders                |
+| `context/`       | Optional split instead of `lib/context.ts` when a provider tree is large |
+| `svg/`           | Icons and decorations owned by this component only                       |
 
 Import SVG as React components when needed: `import Icon from './svg/CheckIcon.svg?react'` (configure in `next.config.ts` if used).
 
@@ -497,10 +497,10 @@ features/home/
 
 Rules:
 
-* **No** feature-wide `features/{feature}/svg/` — assets live with the component that uses them
-* **No** nested `svg/` under `svg/`; flat files inside `ComponentFolder/svg/`
-* Prefer descriptive filenames inside `svg/` — the folder path already identifies the owner
-* If two components need the same SVG, duplicate in each owner's `svg/` or move to `public/icons/` — no separate promotion workflow
+- **No** feature-wide `features/{feature}/svg/` — assets live with the component that uses them
+- **No** nested `svg/` under `svg/`; flat files inside `ComponentFolder/svg/`
+- Prefer descriptive filenames inside `svg/` — the folder path already identifies the owner
+- If two components need the same SVG, duplicate in each owner's `svg/` or move to `public/icons/` — no separate promotion workflow
 
 ### Shared SVGs (global)
 
@@ -522,9 +522,9 @@ Loaded in `getRequestConfig`:
 
 ```ts
 // src/i18n/request.ts
-import { hasLocale } from 'next-intl';
-import { getRequestConfig } from 'next-intl/server';
-import { routing } from './routing';
+import { hasLocale } from "next-intl";
+import { getRequestConfig } from "next-intl/server";
+import { routing } from "./routing";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
@@ -548,15 +548,15 @@ Component sections use PascalCase matching the component folder (`Portfolio`, `F
 Usage:
 
 ```ts
-const t = useTranslations('Portfolio');
-const t = useTranslations('Form');
-const t = useTranslations('Nav');
+const t = useTranslations("Portfolio");
+const t = useTranslations("Form");
+const t = useTranslations("Nav");
 ```
 
 ### Rules
 
-* Both `en.json` and `ar.json` must always have the same keys
-* Edit the locale files directly — no merge step or per-feature split folders
+- Both `en.json` and `ar.json` must always have the same keys
+- Edit the locale files directly — no merge step or per-feature split folders
 
 ---
 
@@ -601,32 +601,32 @@ shared/
 
 ### lib/ vs helpers/ vs utils/
 
-* **lib/** — talks to external systems. Has side effects or I/O. Firebase, Resend, API route helpers.
-* **helpers/** — domain-aware pure functions. Knows about app data shapes. No I/O.
-* **utils/** — generic pure functions. No domain knowledge. Easily unit-testable in isolation.
+- **lib/** — talks to external systems. Has side effects or I/O. Firebase, Resend, API route helpers.
+- **helpers/** — domain-aware pure functions. Knows about app data shapes. No I/O.
+- **utils/** — generic pure functions. No domain knowledge. Easily unit-testable in isolation.
 
 ### Migration map (today → target)
 
-| Today | Target |
-|-------|--------|
-| `src/components/nav/Nav.tsx` | `shared/components/layout/Nav/` |
-| `src/components/footer/Footer.tsx` | `shared/components/layout/Footer/` |
-| `src/components/loading/Loading.tsx` | `shared/components/Loading/` |
-| `src/components/toggle/ThemeToggle.tsx` | `shared/components/toggle/ThemeToggle/` |
-| `src/components/home/landing/Landing.tsx` | `features/home/01.Landing/` |
-| `src/components/home/portfolio/Portfolio.tsx` | `features/home/02.Portfolio/` |
-| `src/components/home/services/Services.tsx` | `features/home/03.Services/` |
-| `src/components/home/process/Process.tsx` | `features/home/04.Process/` |
-| `src/components/home/about/About.tsx` | `features/home/05.About/` |
-| `src/app/[locale]/page.tsx` + `Home.module.css` | `features/home/00.HomePage/` |
-| `src/app/[locale]/get-started/GetStarted.tsx` | `features/get-started/00.GetStartedPage/` |
-| `src/app/[locale]/get-started/FormHeader.tsx` | `features/get-started/00.GetStartedPage.FormHeader/` |
-| `src/app/[locale]/get-started/FormProgressBar.tsx` | `features/get-started/00.GetStartedPage.FormProgressBar/` |
-| `src/app/[locale]/confirmation/[id]/Confirmation.tsx` | `features/confirmation/01.Confirmation/` |
-| `src/app/[locale]/confirmation/[id]/page.tsx` logic | `features/confirmation/00.ConfirmationPage/` |
-| `src/hooks/useBooking.ts` | `shared/hooks/useBooking.ts` |
-| `src/lib/firebase.ts`, `types.ts`, `constants.ts` | `shared/lib/` |
-| `src/app/api/booking/*` | stays in `app/api/booking/` |
+| Today                                                 | Target                                                    |
+| ----------------------------------------------------- | --------------------------------------------------------- |
+| `src/components/nav/Nav.tsx`                          | `shared/components/layout/Nav/`                           |
+| `src/components/footer/Footer.tsx`                    | `shared/components/layout/Footer/`                        |
+| `src/components/loading/Loading.tsx`                  | `shared/components/Loading/`                              |
+| `src/components/toggle/ThemeToggle.tsx`               | `shared/components/toggle/ThemeToggle/`                   |
+| `src/components/home/landing/Landing.tsx`             | `features/home/01.Landing/`                               |
+| `src/components/home/portfolio/Portfolio.tsx`         | `features/home/02.Portfolio/`                             |
+| `src/components/home/services/Services.tsx`           | `features/home/03.Services/`                              |
+| `src/components/home/process/Process.tsx`             | `features/home/04.Process/`                               |
+| `src/components/home/about/About.tsx`                 | `features/home/05.About/`                                 |
+| `src/app/[locale]/page.tsx` + `Home.module.css`       | `features/home/00.HomePage/`                              |
+| `src/app/[locale]/get-started/GetStarted.tsx`         | `features/get-started/00.GetStartedPage/`                 |
+| `src/app/[locale]/get-started/FormHeader.tsx`         | `features/get-started/00.GetStartedPage.FormHeader/`      |
+| `src/app/[locale]/get-started/FormProgressBar.tsx`    | `features/get-started/00.GetStartedPage.FormProgressBar/` |
+| `src/app/[locale]/confirmation/[id]/Confirmation.tsx` | `features/confirmation/01.Confirmation/`                  |
+| `src/app/[locale]/confirmation/[id]/page.tsx` logic   | `features/confirmation/00.ConfirmationPage/`              |
+| `src/hooks/useBooking.ts`                             | `shared/hooks/useBooking.ts`                              |
+| `src/lib/firebase.ts`, `types.ts`, `constants.ts`     | `shared/lib/`                                             |
+| `src/app/api/booking/*`                               | stays in `app/api/booking/`                               |
 
 ---
 
@@ -712,46 +712,46 @@ shared/components/ui/ServiceCard/
 
 ## Colocated file types (quick reference — Option B)
 
-| Role | Location |
-|------|----------|
-| Component | `Landing.tsx` |
-| Styles | `Landing.module.css` |
-| Types | `types.ts` |
-| Pure helpers / metadata | `lib/helpers.ts` |
-| I/O fetch | `lib/fetch.ts` |
-| Static data | `lib/data.ts` |
-| Zod / JSON-LD | `lib/schemas.ts` |
-| SVG | `svg/*.svg` |
+| Role                    | Location             |
+| ----------------------- | -------------------- |
+| Component               | `Landing.tsx`        |
+| Styles                  | `Landing.module.css` |
+| Types                   | `types.ts`           |
+| Pure helpers / metadata | `lib/helpers.ts`     |
+| I/O fetch               | `lib/fetch.ts`       |
+| Static data             | `lib/data.ts`        |
+| Zod / JSON-LD           | `lib/schemas.ts`     |
+| SVG                     | `svg/*.svg`          |
 
 **`app/` route segment (thin)**
 
-| File | Purpose |
-|------|---------|
-| `page.tsx` | Import from `@/features/{feature}` |
+| File       | Purpose                                                 |
+| ---------- | ------------------------------------------------------- |
+| `page.tsx` | Import from `@/features/{feature}`                      |
 | `types.ts` | Optional: route `params` only if not in `00.*/types.ts` |
-| `route.ts` | API handlers under `app/api/` |
+| `route.ts` | API handlers under `app/api/`                           |
 
 ---
 
 ## What NOT to do
 
-* No `_components/` or colocated page components inside `app/` routes after migration
-* No **two route pages in one feature** — e.g. do not put `00.HomePage` and `00.GetStartedPage` under `features/home/`
-* No **nested component folders** — `02.Portfolio/02.Portfolio._PortfolioItem/` is wrong; subcomponents are siblings: `02.Portfolio._PortfolioItem/`
-* No loose files on the **feature root** except `index.ts`
-* No single-digit order prefixes — use `01`, `02`, not `1`, `2`
-* No new `NN` for subcomponents — they inherit the parent section number
-* No prefixed flat files (`Landing.helpers.ts`) — use Option B `lib/helpers.ts`
-* No `lib/` on the feature root — only inside component folders
-* No feature-level `svg/` tree — use per-component `svg/` subfolders
-* No `{NN}._Name/` on the feature root for **main-scoped** shared — use `02.Portfolio._PortfolioItem/`
-* No numeric prefix on **feature-wide** shared — use `_ServiceCard/`, not `03._ServiceCard/`
-* No nesting shared or private folders inside a parent component folder
-* No importing a `.tsx` file path — use `from '..'` or `@/features/{feature}`
-* No skipping `index.ts` on any component or feature folder
-* No importing sibling component folders — use `from '..'` only
-* No re-exporting other folders from a component `index.ts`
-* Feature `index.ts` must re-export every folder in that feature that other files import
-* No promoting a private subfolder directly to `shared/` — use the `_` shared folder stage first
-* No `_` on the feature root for layout-only or single-section components
-* No lowercase component or folder names
+- No `_components/` or colocated page components inside `app/` routes after migration
+- No **two route pages in one feature** — e.g. do not put `00.HomePage` and `00.GetStartedPage` under `features/home/`
+- No **nested component folders** — `02.Portfolio/02.Portfolio._PortfolioItem/` is wrong; subcomponents are siblings: `02.Portfolio._PortfolioItem/`
+- No loose files on the **feature root** except `index.ts`
+- No single-digit order prefixes — use `01`, `02`, not `1`, `2`
+- No new `NN` for subcomponents — they inherit the parent section number
+- No prefixed flat files (`Landing.helpers.ts`) — use Option B `lib/helpers.ts`
+- No `lib/` on the feature root — only inside component folders
+- No feature-level `svg/` tree — use per-component `svg/` subfolders
+- No `{NN}._Name/` on the feature root for **main-scoped** shared — use `02.Portfolio._PortfolioItem/`
+- No numeric prefix on **feature-wide** shared — use `_ServiceCard/`, not `03._ServiceCard/`
+- No nesting shared or private folders inside a parent component folder
+- No importing a `.tsx` file path — use `from '..'` or `@/features/{feature}`
+- No skipping `index.ts` on any component or feature folder
+- No importing sibling component folders — use `from '..'` only
+- No re-exporting other folders from a component `index.ts`
+- Feature `index.ts` must re-export every folder in that feature that other files import
+- No promoting a private subfolder directly to `shared/` — use the `_` shared folder stage first
+- No `_` on the feature root for layout-only or single-section components
+- No lowercase component or folder names
