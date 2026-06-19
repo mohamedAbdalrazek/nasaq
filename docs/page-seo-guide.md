@@ -6,10 +6,10 @@ A checklist and reference for adding SEO to any page on [nasaq.app](https://nasa
 
 **Public routes:**
 
-| Page | URL pattern | Indexed |
-|------|-------------|---------|
-| Home | `/{locale}` | Yes |
-| Get Started | `/{locale}/get-started` | Yes |
+| Page         | URL pattern                   | Indexed        |
+| ------------ | ----------------------------- | -------------- |
+| Home         | `/{locale}`                   | Yes            |
+| Get Started  | `/{locale}/get-started`       | Yes            |
 | Confirmation | `/{locale}/confirmation/{id}` | No (`noindex`) |
 
 ---
@@ -25,25 +25,27 @@ import { buildPageMetadata } from "@/shared/lib/seo/buildPageMetadata";
 import type { Locale } from "@/shared/lib/seo/urls";
 
 export async function generateMetadata({
-    params,
+  params,
 }: {
-    params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-    const { locale } = await params;
-    const t = await getTranslations({ locale, namespace: "Meta.apply" });
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Meta.apply" });
 
-    return buildPageMetadata({
-        locale: locale as Locale,
-        pathAfterLocale: "get-started", // path after /{locale}/
-        title: t("title"),
-        description: t("description"),
-        keywords: t("keywords").split(",").map((kw) => kw.trim()),
-        ogTitle: t("ogTitle"),
-        ogDescription: t("ogDescription"),
-        ogAlt: t("ogAlt"),
-        twitterTitle: t("twitterTitle"),
-        twitterDescription: t("twitterDescription"),
-    });
+  return buildPageMetadata({
+    locale: locale as Locale,
+    pathAfterLocale: "get-started", // path after /{locale}/
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords")
+      .split(",")
+      .map((kw) => kw.trim()),
+    ogTitle: t("ogTitle"),
+    ogDescription: t("ogDescription"),
+    ogAlt: t("ogAlt"),
+    twitterTitle: t("twitterTitle"),
+    twitterDescription: t("twitterDescription"),
+  });
 }
 ```
 
@@ -62,12 +64,12 @@ Confirmation and other private pages must pass `robots`:
 
 ```ts
 return buildPageMetadata({
-    // ...
-    robots: {
-        index: false,
-        follow: false,
-        googleBot: { index: false, follow: false },
-    },
+  // ...
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
 });
 ```
 
@@ -81,11 +83,11 @@ Import schema factories and render `<JsonLd>` in the **server** `page.tsx` (not 
 
 ```tsx
 import {
-    JsonLd,
-    organizationSchema,
-    webSiteSchema,
-    webPageSchema,
-    breadcrumbSchema,
+  JsonLd,
+  organizationSchema,
+  webSiteSchema,
+  webPageSchema,
+  breadcrumbSchema,
 } from "@/shared/components/seo";
 ```
 
@@ -93,30 +95,34 @@ Render before the page component:
 
 ```tsx
 <JsonLd
-    data={[
-        organizationSchema(),
-        webSiteSchema(locale),
-        webPageSchema({ locale, name: "Get Started", pathAfterLocale: "get-started" }),
-        breadcrumbSchema({
-            locale,
-            items: [
-                { name: "Home" },
-                { name: "Get Started", pathAfterLocale: "get-started" },
-            ],
-        }),
-    ]}
+  data={[
+    organizationSchema(),
+    webSiteSchema(locale),
+    webPageSchema({
+      locale,
+      name: "Get Started",
+      pathAfterLocale: "get-started",
+    }),
+    breadcrumbSchema({
+      locale,
+      items: [
+        { name: "Home" },
+        { name: "Get Started", pathAfterLocale: "get-started" },
+      ],
+    }),
+  ]}
 />
 ```
 
 ### Which schemas to include
 
-| Schema | When | File |
-|--------|------|------|
-| `organizationSchema()` | Every page | `src/shared/components/seo/schemas/organization.ts` |
-| `webSiteSchema(locale)` | Every page | `src/shared/components/seo/schemas/webSite.ts` |
-| `webPageSchema(...)` | Every page | `src/shared/components/seo/schemas/webPage.ts` |
-| `breadcrumbSchema(...)` | Every page | `src/shared/components/seo/schemas/webPage.ts` |
-| `professionalServiceSchema(locale)` | Home only | `src/shared/components/seo/schemas/professionalService.ts` |
+| Schema                              | When       | File                                                       |
+| ----------------------------------- | ---------- | ---------------------------------------------------------- |
+| `organizationSchema()`              | Every page | `src/shared/components/seo/schemas/organization.ts`        |
+| `webSiteSchema(locale)`             | Every page | `src/shared/components/seo/schemas/webSite.ts`             |
+| `webPageSchema(...)`                | Every page | `src/shared/components/seo/schemas/webPage.ts`             |
+| `breadcrumbSchema(...)`             | Every page | `src/shared/components/seo/schemas/webPage.ts`             |
+| `professionalServiceSchema(locale)` | Home only  | `src/shared/components/seo/schemas/professionalService.ts` |
 
 ### Home page example
 
@@ -136,14 +142,14 @@ See `src/app/[locale]/page.tsx` — includes `professionalServiceSchema` for loc
 
 Handled in `src/app/[locale]/layout.tsx`:
 
-| Element | Location | Notes |
-|---------|----------|-------|
-| `<html lang dir>` | `layout.tsx` | `lang` and `dir` on `<html>` |
-| Skip link | `layout.tsx` | Targets `#main-content` |
-| `<header>` | `layout.tsx` | Wraps `<Nav />` |
-| `<main id="main-content">` | `layout.tsx` | Single `<main>` per page |
-| `<footer>` | `Footer.tsx` | Site-wide footer |
-| `<nav aria-label>` | `Nav.tsx` | `Nav.ariaLabel` i18n key |
+| Element                    | Location     | Notes                        |
+| -------------------------- | ------------ | ---------------------------- |
+| `<html lang dir>`          | `layout.tsx` | `lang` and `dir` on `<html>` |
+| Skip link                  | `layout.tsx` | Targets `#main-content`      |
+| `<header>`                 | `layout.tsx` | Wraps `<Nav />`              |
+| `<main id="main-content">` | `layout.tsx` | Single `<main>` per page     |
+| `<footer>`                 | `Footer.tsx` | Site-wide footer             |
+| `<nav aria-label>`         | `Nav.tsx`    | `Nav.ariaLabel` i18n key     |
 
 ### Section elements
 
@@ -153,27 +159,25 @@ Every visually distinct content block with its own heading must be a `<section>`
 
 ```tsx
 <section aria-labelledby="services-heading" id="services">
-    <h2 id="services-heading">{t("sectionTitle")}</h2>
-    ...
+  <h2 id="services-heading">{t("sectionTitle")}</h2>
+  ...
 </section>
 ```
 
 **Without a single heading** — use `aria-label`:
 
 ```tsx
-<section aria-label={t("sectionAriaLabel")}>
-    ...
-</section>
+<section aria-label={t("sectionAriaLabel")}>...</section>
 ```
 
 ### Heading hierarchy
 
-| Rule | Details |
-|------|---------|
+| Rule                        | Details                                       |
+| --------------------------- | --------------------------------------------- |
 | Exactly one `<h1>` per page | Hero title (home) or form title (get-started) |
-| Section titles use `<h2>` | Portfolio, Services, Process, About |
-| Sub-items use `<h3>` | Cards, feature titles, FAQ items |
-| Never skip levels | No `<h1>` → `<h3>` without an `<h2>` |
+| Section titles use `<h2>`   | Portfolio, Services, Process, About           |
+| Sub-items use `<h3>`        | Cards, feature titles, FAQ items              |
+| Never skip levels           | No `<h1>` → `<h3>` without an `<h2>`          |
 
 ---
 
@@ -247,28 +251,28 @@ No per-page action needed beyond passing the correct `pathAfterLocale`.
 
 For each new page, add keys to both `messages/en.json` and `messages/ar.json`:
 
-| Key pattern | Namespace | Usage |
-|-------------|-----------|-------|
-| `Meta.<page>.title` | `Meta` | `<title>` and JSON-LD page name |
-| `Meta.<page>.description` | `Meta` | Meta description |
-| `Meta.<page>.keywords` | `Meta` | Comma-separated keywords |
-| `Meta.<page>.ogTitle` | `Meta` | Open Graph title |
-| `Meta.<page>.ogDescription` | `Meta` | Open Graph description |
-| `Meta.<page>.ogAlt` | `Meta` | OG image alt text |
-| `Meta.<page>.twitterTitle` | `Meta` | Twitter card title |
-| `Meta.<page>.twitterDescription` | `Meta` | Twitter card description |
-| `*ImageAlt` | Page namespace | `alt` on `<Image>` |
-| `*AriaLabel` | Page namespace | `aria-label` on meaningful SVGs |
-| `sectionAriaLabel` | Page namespace | `aria-label` on `<section>` |
-| `Nav.ariaLabel` | `Nav` | `aria-label` on main navigation |
+| Key pattern                      | Namespace      | Usage                           |
+| -------------------------------- | -------------- | ------------------------------- |
+| `Meta.<page>.title`              | `Meta`         | `<title>` and JSON-LD page name |
+| `Meta.<page>.description`        | `Meta`         | Meta description                |
+| `Meta.<page>.keywords`           | `Meta`         | Comma-separated keywords        |
+| `Meta.<page>.ogTitle`            | `Meta`         | Open Graph title                |
+| `Meta.<page>.ogDescription`      | `Meta`         | Open Graph description          |
+| `Meta.<page>.ogAlt`              | `Meta`         | OG image alt text               |
+| `Meta.<page>.twitterTitle`       | `Meta`         | Twitter card title              |
+| `Meta.<page>.twitterDescription` | `Meta`         | Twitter card description        |
+| `*ImageAlt`                      | Page namespace | `alt` on `<Image>`              |
+| `*AriaLabel`                     | Page namespace | `aria-label` on meaningful SVGs |
+| `sectionAriaLabel`               | Page namespace | `aria-label` on `<section>`     |
+| `Nav.ariaLabel`                  | `Nav`          | `aria-label` on main navigation |
 
 ---
 
 ## 9. robots.txt & sitemap.xml
 
-| File | Path |
-|------|------|
-| robots.txt | `src/app/robots.ts` |
+| File        | Path                          |
+| ----------- | ----------------------------- |
+| robots.txt  | `src/app/robots.ts`           |
 | sitemap.xml | `src/app/[locale]/sitemap.ts` |
 
 When adding a new **indexed** page:
@@ -323,13 +327,13 @@ When creating a new indexed page at `src/app/[locale]/<route>/page.tsx`:
 
 ### File map
 
-| Concern | Path |
-|---------|------|
-| Metadata builder | `src/shared/lib/seo/buildPageMetadata.ts` |
-| URL helpers | `src/shared/lib/seo/urls.ts` |
-| JSON-LD component | `src/shared/components/seo/JsonLd.tsx` |
-| Schema factories | `src/shared/components/seo/schemas/` |
-| Root layout | `src/app/[locale]/layout.tsx` |
-| Site constants | `src/shared/lib/constants.ts` |
-| EN copy | `messages/en.json` |
-| AR copy | `messages/ar.json` |
+| Concern           | Path                                      |
+| ----------------- | ----------------------------------------- |
+| Metadata builder  | `src/shared/lib/seo/buildPageMetadata.ts` |
+| URL helpers       | `src/shared/lib/seo/urls.ts`              |
+| JSON-LD component | `src/shared/components/seo/JsonLd.tsx`    |
+| Schema factories  | `src/shared/components/seo/schemas/`      |
+| Root layout       | `src/app/[locale]/layout.tsx`             |
+| Site constants    | `src/shared/lib/constants.ts`             |
+| EN copy           | `messages/en.json`                        |
+| AR copy           | `messages/ar.json`                        |

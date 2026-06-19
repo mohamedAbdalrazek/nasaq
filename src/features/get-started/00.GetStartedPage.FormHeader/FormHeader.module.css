@@ -1,32 +1,32 @@
 .formHeader {
-    text-align: center;
-    margin-bottom: 3rem;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .formTitle {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .formSubtitle {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
-    .formTitle {
-        font-size: 2rem;
-    }
+  .formTitle {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .formHeader {
-        margin-bottom: 2rem;
-    }
+  .formHeader {
+    margin-bottom: 2rem;
+  }
 }

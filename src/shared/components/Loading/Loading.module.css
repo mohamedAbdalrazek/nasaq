@@ -1,348 +1,348 @@
 /* components/LoadingPage.module.css */
 
 .loadingContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--background-primary);
-    transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-primary);
+  transition: var(--transition);
 }
 
 .loadingContainer.fullScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
 }
 
 .loadingContainer.inline {
-    padding: 2rem;
-    min-height: 200px;
+  padding: 2rem;
+  min-height: 200px;
 }
 
 .loadingContainer.small .loadingContent {
-    transform: scale(0.8);
+  transform: scale(0.8);
 }
 
 .loadingContainer.medium .loadingContent {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 .loadingContainer.large .loadingContent {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .loadingContent {
-    text-align: center;
-    z-index: 2;
+  text-align: center;
+  z-index: 2;
 }
 
 .loadingMessage {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-top: 1.5rem;
-    font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  font-weight: 500;
 }
 
 /* Spinner Loader */
 .spinnerLoader {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .spinner {
-    width: 60px;
-    height: 60px;
-    border: 4px solid var(--background-tertiary);
-    border-left: 4px solid var(--accent-primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--background-tertiary);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Dots Loader */
 .dotsLoader {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    animation: dotsBounce 1.4s ease-in-out infinite both;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: dotsBounce 1.4s ease-in-out infinite both;
 }
 
 .dot:nth-child(1) {
-    animation-delay: -0.32s;
+  animation-delay: -0.32s;
 }
 
 .dot:nth-child(2) {
-    animation-delay: -0.16s;
+  animation-delay: -0.16s;
 }
 
 @keyframes dotsBounce {
-    0%,
-    80%,
-    100% {
-        transform: scale(0);
-        opacity: 0.5;
-    }
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Pulse Loader */
 .pulseLoader {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pulseCircle {
-    width: 60px;
-    height: 60px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
+  width: 60px;
+  height: 60px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(0.8);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(0.8);
-        opacity: 0.7;
-    }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
 }
 
 /* Progress Loader */
 .progressLoader {
-    width: 200px;
+  width: 200px;
 }
 
 .progressBar {
-    width: 100%;
-    height: 6px;
-    background: var(--background-tertiary);
-    border-radius: 3px;
-    overflow: hidden;
+  width: 100%;
+  height: 6px;
+  background: var(--background-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .progressFill {
-    height: 100%;
-    background: var(--accent-gradient);
-    border-radius: 3px;
-    animation: progress 2s ease-in-out infinite;
-    transform-origin: left;
+  height: 100%;
+  background: var(--accent-gradient);
+  border-radius: 3px;
+  animation: progress 2s ease-in-out infinite;
+  transform-origin: left;
 }
 
 @keyframes progress {
-    0% {
-        transform: scaleX(0);
-    }
-    50% {
-        transform: scaleX(1);
-    }
-    100% {
-        transform: scaleX(0);
-        transform-origin: right;
-    }
+  0% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 }
 
 /* Skeleton Loader */
 .skeletonLoader {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 200px;
 }
 
 .skeletonLine {
-    height: 12px;
-    background: var(--background-tertiary);
-    border-radius: 6px;
-    animation: skeletonPulse 2s ease-in-out infinite;
+  height: 12px;
+  background: var(--background-tertiary);
+  border-radius: 6px;
+  animation: skeletonPulse 2s ease-in-out infinite;
 }
 
 .skeletonLine:nth-child(1) {
-    width: 100%;
+  width: 100%;
 }
 
 .skeletonLine:nth-child(2) {
-    width: 80%;
+  width: 80%;
 }
 
 .skeletonLine:nth-child(3) {
-    width: 60%;
+  width: 60%;
 }
 
 @keyframes skeletonPulse {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Floating Orbs Background */
 .floatingOrb {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--accent-gradient);
-    opacity: 0.1;
-    filter: blur(20px);
-    animation: float 6s ease-in-out infinite;
-    z-index: 1;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.1;
+  filter: blur(20px);
+  animation: float 6s ease-in-out infinite;
+  z-index: 1;
 }
 
 .floatingOrb:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: var(--delay);
+  top: 20%;
+  left: 10%;
+  animation-delay: var(--delay);
 }
 
 .floatingOrb:nth-child(2) {
-    top: 60%;
-    right: 15%;
-    animation-delay: calc(var(--delay) + 2s);
+  top: 60%;
+  right: 15%;
+  animation-delay: calc(var(--delay) + 2s);
 }
 
 .floatingOrb:nth-child(3) {
-    bottom: 20%;
-    left: 20%;
-    animation-delay: calc(var(--delay) + 4s);
+  bottom: 20%;
+  left: 20%;
+  animation-delay: calc(var(--delay) + 4s);
 }
 
 @keyframes float {
-    0%,
-    100% {
-        transform: translateY(0) translateX(0) scale(1);
-    }
-    33% {
-        transform: translateY(-20px) translateX(10px) scale(1.1);
-    }
-    66% {
-        transform: translateY(10px) translateX(-10px) scale(0.9);
-    }
+  0%,
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) scale(1.1);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) scale(0.9);
+  }
 }
 
 /* Nasaq Branded Loader Variant */
 .nasaqLoader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 .nasaqLogo {
-    font-size: 3rem;
-    font-weight: 700;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    position: relative;
+  font-size: 3rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
 }
 
 .nasaqLogo::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--accent-gradient);
-    border-radius: 2px;
-    animation: logoLine 2s ease-in-out infinite;
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+  animation: logoLine 2s ease-in-out infinite;
 }
 
 @keyframes logoLine {
-    0%,
-    100% {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scaleX(1);
-        opacity: 1;
-    }
+  0%,
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .loadingContainer.inline {
-        padding: 1rem;
-        min-height: 150px;
-    }
+  .loadingContainer.inline {
+    padding: 1rem;
+    min-height: 150px;
+  }
 
-    .spinner {
-        width: 50px;
-        height: 50px;
-    }
+  .spinner {
+    width: 50px;
+    height: 50px;
+  }
 
-    .pulseCircle {
-        width: 50px;
-        height: 50px;
-    }
+  .pulseCircle {
+    width: 50px;
+    height: 50px;
+  }
 
-    .progressLoader {
-        width: 150px;
-    }
+  .progressLoader {
+    width: 150px;
+  }
 
-    .skeletonLoader {
-        width: 150px;
-    }
+  .skeletonLoader {
+    width: 150px;
+  }
 
-    .loadingMessage {
-        font-size: 1rem;
-    }
+  .loadingMessage {
+    font-size: 1rem;
+  }
 
-    .floatingOrb {
-        width: 80px;
-        height: 80px;
-    }
+  .floatingOrb {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-    .spinner,
-    .dot,
-    .pulseCircle,
-    .progressFill,
-    .skeletonLine,
-    .floatingOrb,
-    .nasaqLogo::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
+  .spinner,
+  .dot,
+  .pulseCircle,
+  .progressFill,
+  .skeletonLine,
+  .floatingOrb,
+  .nasaqLogo::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 
-    .spinner {
-        animation: none;
-        border-left-color: transparent;
-    }
+  .spinner {
+    animation: none;
+    border-left-color: transparent;
+  }
 }

@@ -1,2 +1,2 @@
-export { default } from './HomePage';
-export { generateMetadata } from './lib/helpers';
+export { default } from "./HomePage";
+export { generateMetadata } from "./lib/helpers";

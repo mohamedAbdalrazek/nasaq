@@ -5,34 +5,34 @@ import { useState } from "react";
 import { UseFormTrigger } from "react-hook-form";
 
 export const useSteps = (
-    steps: { title: string; fields: string[] }[],
-    trigger: UseFormTrigger<FormData>,
-    totalSteps: number,
+  steps: { title: string; fields: string[] }[],
+  trigger: UseFormTrigger<FormData>,
+  totalSteps: number,
 ) => {
-    const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(1);
 
-    const nextStep = async () => {
-        const currentFields = steps[currentStep - 1].fields;
-        const isStepValid = await trigger(currentFields as (keyof FormData)[], {
-            shouldFocus: true,
-        });
+  const nextStep = async () => {
+    const currentFields = steps[currentStep - 1].fields;
+    const isStepValid = await trigger(currentFields as (keyof FormData)[], {
+      shouldFocus: true,
+    });
 
-        if (!isStepValid) {
-            return;
-        }
+    if (!isStepValid) {
+      return;
+    }
 
-        setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
-    };
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+  };
 
-    const prevStep = () => {
-        setCurrentStep((prev) => Math.max(prev - 1, 1));
-    };
+  const prevStep = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
 
-    const goToStep = (step: number) => {
-        if (step < currentStep || step === 1) {
-            setCurrentStep(step);
-        }
-    };
+  const goToStep = (step: number) => {
+    if (step < currentStep || step === 1) {
+      setCurrentStep(step);
+    }
+  };
 
-    return { nextStep, prevStep, goToStep, currentStep };
+  return { nextStep, prevStep, goToStep, currentStep };
 };

@@ -9,17 +9,25 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
+const eslintIgnores = [
+  "node_modules/**",
+  ".next/**",
+  "out/**",
+  "build/**",
+  ".open-next/**",
+  "coverage/**",
+  ".vercel/**",
+  ".wrangler/**",
+  "next-env.d.ts",
+  "cloudflare-env.d.ts",
+  "pnpm-lock.yaml",
+];
+
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
+    ignores: eslintIgnores,
   },
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
 export default eslintConfig;

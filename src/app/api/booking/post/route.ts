@@ -7,51 +7,55 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 // Define validation schema with Zod
 const formSchema = z.object({
-    // Step 1: Basic Information
-    businessName: z.string().min(1),
-    industry: z.string().min(1),
+  // Step 1: Basic Information
+  businessName: z.string().min(1),
+  industry: z.string().min(1),
 
-    // Step 2: Website Details
-    websitePurpose: z.string().min(1),
-    targetAudience: z.string().min(1),
-    desiredFeatures: z.array(z.string()).min(1),
-    hasExistingWebsite: z.boolean(),
-    existingWebsiteUrl: z.string().optional(),
+  // Step 2: Website Details
+  websitePurpose: z.string().min(1),
+  targetAudience: z.string().min(1),
+  desiredFeatures: z.array(z.string()).min(1),
+  hasExistingWebsite: z.boolean(),
+  existingWebsiteUrl: z.string().optional(),
 
-    // Step 3: Design Preferences
-    colorPreferences: z.string().optional(),
-    exampleWebsites: z.string().optional(),
+  // Step 3: Design Preferences
+  colorPreferences: z.string().optional(),
+  exampleWebsites: z.string().optional(),
 
-    // Step 5: Timeline & Budget
-    timeline: z.string().min(1),
-    budgetRange: z.string().min(1),
-    projectUrgency: z.string().optional(),
+  // Step 5: Timeline & Budget
+  timeline: z.string().min(1),
+  budgetRange: z.string().min(1),
+  projectUrgency: z.string().optional(),
 
-    // Step 6: Contact Information
-    contactName: z.string().min(1),
-    contactEmail: z.string().min(1),
-    contactPhone: z.string().min(1),
-    contactMethod: z.string().min(1),
-    additionalNotes: z.string().optional(),
+  // Step 6: Contact Information
+  contactName: z.string().min(1),
+  contactEmail: z.string().min(1),
+  contactPhone: z.string().min(1),
+  contactMethod: z.string().min(1),
+  additionalNotes: z.string().optional(),
 });
 
 // POST handler
 export async function POST(req: Request) {
-    try {
-        const body = await req.json();
-        const parsed = formSchema.safeParse(body);
-        console.log("Parsed data:", parsed);
-        if (!parsed.success) {
-            const error = JSON.parse(parsed.error.message)[0].message
-            console.error("Validation errors:", error);
-            return NextResponse.json(
-                { error: error || "Validation error", details: parsed.error, ok: false },
-                { status: 400 }
-            );
-        }
+  try {
+    const body = await req.json();
+    const parsed = formSchema.safeParse(body);
+    console.log("Parsed data:", parsed);
+    if (!parsed.success) {
+      const error = JSON.parse(parsed.error.message)[0].message;
+      console.error("Validation errors:", error);
+      return NextResponse.json(
+        {
+          error: error || "Validation error",
+          details: parsed.error,
+          ok: false,
+        },
+        { status: 400 },
+      );
+    }
 
-        const data = parsed.data;
-        const emailBody = `
+    const data = parsed.data;
+    const emailBody = `
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,7 +244,7 @@ export async function POST(req: Request) {
                 <div class="field-group">
                     <span class="field-label">Desired Features</span>
                     <div>
-                        ${data.desiredFeatures.map(feature => `<span class="feature-item">${feature}</span>`)}
+                        ${data.desiredFeatures.map((feature) => `<span class="feature-item">${feature}</span>`)}
                     
                     </div>
                 </div>
@@ -248,8 +252,11 @@ export async function POST(req: Request) {
                 <div class="field-group">
                     <span class="field-label">Existing Website</span>
                     <div class="field-value">
-                    ${data.hasExistingWebsite ? `Yes - ${data.existingWebsiteUrl || 'No URL provided'}` : 'No existing website'
-            }
+                    ${
+                      data.hasExistingWebsite
+                        ? `Yes - ${data.existingWebsiteUrl || "No URL provided"}`
+                        : "No existing website"
+                    }
                 
                     </div>
                 </div>
@@ -262,7 +269,7 @@ export async function POST(req: Request) {
                 <div class="field-group">
                     <span class="field-label">Color Preferences</span>
                     <div class="field-value">
-                        ${data.colorPreferences ? data.colorPreferences : 'Not specified'}
+                        ${data.colorPreferences ? data.colorPreferences : "Not specified"}
                         
                     </div>
                 </div>
@@ -270,7 +277,7 @@ export async function POST(req: Request) {
                 <div class="field-group">
                     <span class="field-label">Example Websites</span>
                     <div class="field-value">
-                        ${data.exampleWebsites ? data.exampleWebsites : 'Not specified'}
+                        ${data.exampleWebsites ? data.exampleWebsites : "Not specified"}
                     </div>
                 </div>
             </div>
@@ -292,7 +299,7 @@ export async function POST(req: Request) {
                 <div class="field-group">
                     <span class="field-label">Project Urgency</span>
                     <div class="field-value">
-                    ${data.projectUrgency ? `<span class="urgency-badge urgency-{${data.projectUrgency}}">${data.projectUrgency}</span>` : 'Not specified'}
+                    ${data.projectUrgency ? `<span class="urgency-badge urgency-{${data.projectUrgency}}">${data.projectUrgency}</span>` : "Not specified"}
                     </div>
                 </div>
             </div>
@@ -357,27 +364,30 @@ export async function POST(req: Request) {
     </div>
 </body>
 </html>
-        `
-        const receiver = process.env.RECEIVER_EMAIL ?? ""
-        const { error } = await resend.emails.send({
-            from: `Developer <${process.env.SENDER_EMAIL}>`,
-            to: receiver,
-            subject: "New Form Submission",
-            html: emailBody,
-        });
-        if (error) {
-            console.error("Resend error:", error);
-            return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-        }
-        const docRef = collection(firestore, "booking");
-        const result = await addDoc(docRef, { ...data, createdAt: new Date() });
-
-        return NextResponse.json({ id: result.id, ok: true }, { status: 201 });
-    } catch (error) {
-        console.error("Error saving booking:", error);
-        return NextResponse.json(
-            { error: "Internal server error", ok: false },
-            { status: 500 }
-        );
+        `;
+    const receiver = process.env.RECEIVER_EMAIL ?? "";
+    const { error } = await resend.emails.send({
+      from: `Developer <${process.env.SENDER_EMAIL}>`,
+      to: receiver,
+      subject: "New Form Submission",
+      html: emailBody,
+    });
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { error: "Internal server error" },
+        { status: 500 },
+      );
     }
+    const docRef = collection(firestore, "booking");
+    const result = await addDoc(docRef, { ...data, createdAt: new Date() });
+
+    return NextResponse.json({ id: result.id, ok: true }, { status: 201 });
+  } catch (error) {
+    console.error("Error saving booking:", error);
+    return NextResponse.json(
+      { error: "Internal server error", ok: false },
+      { status: 500 },
+    );
+  }
 }

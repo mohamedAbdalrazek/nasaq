@@ -3,25 +3,22 @@
   "main": ".open-next/worker.js",
   "name": "nasaq",
   "compatibility_date": "2026-06-16",
-  "compatibility_flags": [
-    "nodejs_compat",
-    "global_fetch_strictly_public"
-  ],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
   },
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "nasaq"
-    }
+      "service": "nasaq",
+    },
   ],
   "images": {
-    "binding": "IMAGES"
+    "binding": "IMAGES",
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "env": {
     "staging": {
@@ -29,40 +26,40 @@
       "routes": [
         {
           "pattern": "staging.nasaq.app",
-          "custom_domain": true
-        }
+          "custom_domain": true,
+        },
       ],
       "services": [
         {
           "binding": "WORKER_SELF_REFERENCE",
-          "service": "nasaq-staging"
-        }
+          "service": "nasaq-staging",
+        },
       ],
       "images": {
-        "binding": "IMAGES"
-      }
+        "binding": "IMAGES",
+      },
     },
     "production": {
       "name": "nasaq",
       "routes": [
         {
           "pattern": "nasaq.app",
-          "custom_domain": true
+          "custom_domain": true,
         },
         {
           "pattern": "www.nasaq.app",
-          "custom_domain": true
-        }
+          "custom_domain": true,
+        },
       ],
       "services": [
         {
           "binding": "WORKER_SELF_REFERENCE",
-          "service": "nasaq"
-        }
+          "service": "nasaq",
+        },
       ],
       "images": {
-        "binding": "IMAGES"
-      }
-    }
-  }
+        "binding": "IMAGES",
+      },
+    },
+  },
 }

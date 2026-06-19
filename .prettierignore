@@ -1,0 +1,32 @@
+# dependencies
+node_modules
+.pnp
+.pnp.*
+.yarn
+
+# build outputs
+.next
+out
+build
+.open-next
+
+# testing
+coverage
+
+# misc
+.vercel
+.wrangler
+.DS_Store
+
+# logs
+*.log
+.pnpm-debug.log*
+
+# env
+.env*
+
+# generated / lockfiles
+next-env.d.ts
+cloudflare-env.d.ts
+pnpm-lock.yaml
+*.tsbuildinfo
