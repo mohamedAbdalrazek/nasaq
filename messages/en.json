@@ -27,6 +27,12 @@
       "twitterDescription": "Fill out Nasaq’s application form to request websites, apps, and digital solutions that match your business needs."
     }
   },
+  "NotFound": {
+    "title": "Page Not Found",
+    "heading": "404",
+    "message": "Sorry, we couldn't find the page you're looking for. It may have been moved or doesn't exist.",
+    "backHome": "Back to Home"
+  },
   "Layout": {
     "skipToMainContent": "Skip to main content"
   },
