@@ -273,12 +273,12 @@ For each new page, add keys to both `messages/en.json` and `messages/ar.json`:
 | File        | Path                          |
 | ----------- | ----------------------------- |
 | robots.txt  | `src/app/robots.ts`           |
-| sitemap.xml | `src/app/[locale]/sitemap.ts` |
+| sitemap.xml | `src/app/sitemap.ts`          |
 
 When adding a new **indexed** page:
 
 1. Add `generateMetadata` with the correct `pathAfterLocale`.
-2. Add the URL(s) to `src/app/[locale]/sitemap.ts` for both `en` and `ar`.
+2. Add the URL(s) to `src/app/sitemap.ts` for both `en` and `ar`.
 3. Confirm the page is not in `robots.ts` `disallow`.
 
 Confirmation pages are blocked via `disallow: ["/en/confirmation/", "/ar/confirmation/"]` and `noindex` metadata.
